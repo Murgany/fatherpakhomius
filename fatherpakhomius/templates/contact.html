@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block navbar %} {% include 'base.html' %} {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid m- p-0" style="background: #0099ff; border-bottom: 10px solid #fff">
+    <div class="row justify-content-center pt-5 m-0 p-2">
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 m-0 p-1 mb-5 justify-content-center contact-form rounded">
+            <form method="post" class="p-0 me-3 ms-3 mt-4 mb-2"
+                  style="display: flex; flex-direction: column; justify-content: center;">
+                {% csrf_token %}
+                {{ form.as_table }}
+                <div class="row m-0 justify-content-center me-3 ms-3 mt-4 mb-3" style="height: 37px;">
+                    <input class="a page-links" type="submit" value="Send"
+                           style="border: none;">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}  {% include "footer.html" %} {% endblock %}
+
+{% block scripts %} {% endblock %}

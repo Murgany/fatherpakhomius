@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1 shrink-to-fit=no"/>
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=material+icons">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    <title>father pakhomius official website</title>
+
+    <style>
+
+</style>
+</head>
+
+<body>
+
+{% block navbar %}
+
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark"
+     style="background-color: #fff; border-bottom: 0.4px solid #0099ff;">
+    <div class="container-fluid">
+
+        <a style="background-color: #0099ff; border-radius: 30px; height: 37px; font-size: 16px;" class="navbar-brand p-2 ps-3 pe-3"
+           href="{% url 'index' %}">
+         <small class="text-white">Father Pakhomius</small>
+        </a>
+
+        <button style="border-color: #0099ff; border-radius: 30px; height: 37px;" class="navbar-toggler btn-sm" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarsupportedcontent"
+                aria-controls="navbarsupportedcontent" aria-expanded="false" aria-label="toggle navigation">
+            <img style="color: #fff" src="{% static 'icons/list.svg' %}">
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarsupportedcontent" style="transition: all 1s ease;">
+
+            <ul class="navbar-nav m-auto mt-2 mb-lg-0 col-12 col-sm-7 col-md-12 col-lg-9 justify-content-center text-center">
+                <li class="nav-item">
+                    <a class="nav-link p-2 ps-2 pe-2 nav-link-color" aria-current="page" href="{% url 'index' %}" style=" color: #777">Home</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link p-2 ps-2 pe-2 " href="{% url 'sermons' %}" style="color: #777">Sermons</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'book_list' %}" style="color: #777">Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'contact' %}" style="color: #777">Contact us</a>
+                </li>
+                <li class="nav-item ms-3 me-3">
+                      <a class="nav-link mb-2 p-2 ps-3 pe-3" href="{% url 'liturgies' %}"
+                         style="color: #fff; background-color: #ff6500; border-radius: 30px; height: 37px; font-size: inherit; font-weight: inherit; ">Liturgy schedules</a>
+                </li>
+            </ul>
+
+            <form class="d-flex m-auto col-12 col-sm-7 col-md-10 col-lg-3 justify-content-end" role="search">
+                <input class="form-control me-2 search-bar" type="search" placeholder="search" aria-label="search">
+                <button style="background-color: #0099ff; border-radius: 30px;" class="btn text-white" type="submit">
+                    <img style="color: #fff" src="{% static 'icons/search.svg' %}">
+                </button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block body %} {% endblock %}
+
+{% block footer %} {% endblock %}
+
+{% block scripts %}
+<!-- javascript bundle with popper -->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"-->
+        <!--integrity="sha384-obqdvmmz9atkxiep9ticxs/z9fnfexidaytujmaebasjfuczsmkbssunqlmh/jp3"-->
+        <!--crossorigin="anonymous"></script>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"-->
+        <!--integrity="sha384-idwe1+lcz02rou9k972gdyvl+aesn10+x7tbkgc9i5hftunz0wwnpclzo6p9vxnk"-->
+        <!--crossorigin="anonymous"></script>-->
+<script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery-3.6.1.min.js' %}"></script>
+
+{% endblock %}
+</body>
+</html>

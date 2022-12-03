@@ -1,0 +1,201 @@
+
+        body, html {
+        font-family: 'ibm plex sans arabic', sans-serif;
+        font-family: 'noto sans arabic', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        color: #0099ff;
+        transition: all 1s ease;
+        /*letter-spacing: 1px;-*/
+        }
+
+.header-image {
+background-image: url('/media/images/22.webp');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+min-height: 400px;
+display: block;
+}
+
+@media screen and (max-width: 600px){
+  .header-image {
+  display: none;
+  }
+}
+
+        .page-links, .sermons-button {
+          font-size: 17px;
+          font-weight: 600;
+          width: 100%;
+          border-radius: 30px
+        }
+
+         .sermons-button {
+          color: #0099ff;
+          height: 37px;
+          }
+
+        .page-links {
+          color: #fff;
+          width: 200px;
+          background-color: #0099ff;
+        }
+
+       .page-links:hover {
+          color: #000;
+       }
+
+        .pagination-links {
+         font-size: 16px;
+         font-weight: 500;
+        }
+
+        .pagination-links:hover {
+         background-color: #DAEEFF;
+        }
+
+        .pagination-focus {
+          background-color: #ff6500;
+          color: #fff
+        }
+
+        .pdf-link, .buttons {
+        text-decoration: none;
+        color: #454545;
+        font-weight: 600;
+        }
+
+.pdf-link:hover {
+        text-decoration: none;
+        color: #ff6500;
+         transform: scale(1.2);
+ -webkit-transform: scale(1.2);
+ -moz-transform: scale(1.2);
+
+        }
+
+a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+ }
+
+p {
+font-size: 17px;
+font-weight: 500;
+ }
+
+.book-list-wrapper {
+ width: 60%;
+ margin: auto;
+}
+
+@media screen and (max-width: 600px){
+.book-list-wrapper {width: 96.9%;}
+}
+
+    .player {
+       /*border-radius: 20;
+        -webkit-border-radius: 20;
+      -moz-border-radius: 20;*/
+      /* display: flex;
+       flex-direction: column;*/
+      /* align-items: center;
+       margin: auto;
+       background-image: radial-gradient(circle, #fff 10%, #ff6500 90%);*/
+     background-color: #ff6500
+    }
+
+    @media screen and (max-width: 600px) {
+      .player {
+      width: 100%;
+      background-color: #DAEEFF
+    }
+}
+
+      .mobile-bg {
+       background-color: inherit;
+    }
+
+    @media screen and (max-width: 600px) {
+      .mobile-bg {
+       background-color: #0099ff;
+       border-radius: 5px;
+    }
+}
+
+.sermon-pagination {
+border-radius: 25px;
+width: 60px;
+height: 25px;
+border: none;
+color: #fff;
+font-size: 30px;
+text-align: center;
+}
+
+audio:hover, audio:focus, audio:active {
+ transform: scale(1.01);
+ -webkit-transform: scale(1.01);
+ -moz-transform: scale(1.01);
+
+  /* -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+  -moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+ box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);*/
+}
+
+audio {
+/*
+ background-image: radial-gradient(circle, #fff 10%, #ff6500 90%);*/
+ transition: all 0.5s linear;
+ -webkit-transition: all 1s linear;
+ -moz-transition: all 1s linear;
+ -o-transition: all 1s linear;
+  background-color: #0099ff;
+/*
+ box-shadow: 2px 2px 4px 0px #006773;
+  -moz-box-shadow: 2px 2px 4px 0px #006773;
+ -webkit-box-shadow:  2px 2px 4px 0px #006773;*/
+}
+
+.table-borders {
+  border: 1px solid #989898;
+}
+
+.books-header {
+background-color: #0099ff;
+color: #fff;
+width: 100%;
+font-weight: 900;
+}
+
+.contact-form {
+background: #DAF0FF;
+}
+
+/*
+@media screen and(max-width: 600px){
+.contact-form {}
+}
+*/
+
+.search-bar {
+border-radius: 30px;
+color: #0099ff;
+border-color: #0099ff;
+height: 37px;
+width: 80px;
+float: right;
+transition: all 1s ease;
+}
+
+.search-bar:hover, .search-bar:focus {
+width: 180px;
+transition: ease 1s ;
+margin: auto;
+}
+
+@media screen and (max-width: 600px){
+.search-bar { display: block}
+}

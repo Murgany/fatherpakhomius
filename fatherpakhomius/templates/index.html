@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block navbar %} {% include 'base.html' %} {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid pb- p-0">
+
+    <div class="container-fluid justify-content-center">
+        {% for sermon in page_obj %}
+        <div class="container-fluid p-0 ">
+            <div class="row">
+
+                <div class="col-12 col-sm-6 col-md-8 col-lg-8 header-image">
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 player m-0 p-0 ">
+                    {% for sermon in sermons %}
+                    <!--<div class="row m-0 p-0 justify-content-center" style="width: 100">-->
+                    <div class="row m-0 p-0 me-3 ms-3 mt-4 mb-3 justify-content-center mobile-bg">
+                        <h1 class="text-center mt-5 m-auto mb-3"
+                            style="width: 100%; font-weight: 900; color: #fff; "> أحدث عظات</h1>
+
+                        {% if sermon.title %}
+                        <p class="mb-3 mt-3" style="color: #fff">
+                            {{sermon.title}}: {% if sermon.description %} <span style="color: #000">{{sermon.description}}</span>
+                            {% endif %}
+                        </p>
+                        {% endif %}
+                        <audio controls class="" style="width: 100%; height: 37px ">
+                            {% if sermon.audio %}
+                            <source src="{{ sermon.audio.url }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                            {% elif sermon.video %}
+                            <source src="{{ sermon.video.url }}" type="video/mp4">
+                            Your browser does not support the audio element.
+                            {% else %}
+                            <div></div>
+                            {% endif %}
+                        </audio>
+
+                        <!--pagination-->
+                        <div class="row justify-content-center text-center mb-3 mt-1">
+                            {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="col sermon-pagination btn-sm">
+                                <img src="{% static 'icons/rewind-btn.svg' %}" alt="...">
+                            </a>
+                            {% endif %}
+                            {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}" class="col sermon-pagination btn-sm">
+                                <img class="text-right" src="{% static 'icons/fast-forward-btn.svg' %}" alt="...">
+                            </a>
+                            {% endif %}
+                        </div>
+                        <!--Pagination end-->
+                        <div class="row m-0 justify-content-center me-3 ms-3 mt-4 mb-3" style="height: 37px;">
+                            <a class="text-center btn-light p-1 sermons-button" href="{% url 'book_list' %}">جميع
+                                العظات</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="latestBooks" class=""></div>
+
+{% endblock %}
+
+{% block footer %}  {% include "footer.html" %} {% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $("#latestBooks").load("latest_books");
+});
+</script>
+{% endblock %}

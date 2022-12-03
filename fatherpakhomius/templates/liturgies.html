@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %} {% include 'base.html' %} {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mt-5 mb-5" >
+    <div class="book-list-wrapper">
+
+        <div class="row justify-content-center">
+            <h1 class="text-center p-2" style="background-color: #0099ff; color: #fff; width: 100%; font-weight: 900 ">
+                اوقات القداسات</h1>
+            <table class="table border mt-5 justify-content-center"> <!-- style="background-color: #DAEEFF"-->
+                <tr class="">
+                    <th class="table-borders" style="color: #0099ff">
+                        <img src="{% static 'icons/calendar-day.svg' %}" alt="...">Day
+                    </th>
+                    <th class="table-borders" style="color: #0099ff; min-width: 80px">
+                        <img src="{% static 'icons/clock.svg' %}" alt="..."> Time
+                    </th>
+                </tr>
+                {% for schedule in liturgies %}
+                <tr>
+                    <td class="table-borders">
+                        {% if schedule.day %}
+                        {{schedule.day}}<br>
+                        {% if schedule.comment %}
+                        <small style="color: #ff6500">{{ schedule.comment }}</small>
+                        {% endif %}
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                    </td>
+                    <td class="table-borders">
+                        {% if schedule.time %}
+                        {{schedule.time}}
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block footer %}  {% include "footer.html" %} {% endblock %}
+
+{% block scripts %} {% endblock %}
