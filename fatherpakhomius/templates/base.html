@@ -17,7 +17,6 @@
 
 </style>
 </head>
-
 <body>
 
 {% block navbar %}
@@ -46,8 +45,14 @@
                 <li class="nav-item ">
                     <a class="nav-link p-2 ps-2 pe-2 " href="{% url 'sermons' %}" style="color: #777">Sermons</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'other_sermons' %}" style="color: #777">Other sermons</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link p-2 ps-2 pe-2" href="{% url 'book_list' %}" style="color: #777">Books</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'other_books' %}" style="color: #777">Other books </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link p-2 ps-2 pe-2" href="{% url 'contact' %}" style="color: #777">Contact us</a>

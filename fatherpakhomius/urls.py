@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import IndexView, BookListView, SermonsView, LatestBookListView, Liturgies, contactView # successView #, audio_download,ContactView
+from .views import IndexView, BookListView, SermonsView, LatestBookListView, Liturgies,OtherSermonsView, OtherBooksView, contactView # successView #, audio_download,ContactView
 # from django import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -12,6 +12,9 @@ urlpatterns = [
                   path('liturgies', Liturgies.as_view(), name='liturgies'),
                   # path('contact/', ContactView.as_view(), name='contact'),
                   path('contact/', contactView, name='contact'),
+
+                  path('other_sermons', OtherSermonsView.as_view(), name='other_sermons'),
+                  path('other_books', OtherBooksView.as_view(), name='other_books'),
 
                   # path('book/<int:pk>', BookDetailView.as_view(), name='book-detail'),
                   # path('audio_download/<int:pk>', audio_download, name='audio_download'),

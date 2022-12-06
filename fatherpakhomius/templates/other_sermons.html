@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %} {% include 'base.html' %} {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid pt-5 pb-3" style="background-color: #DAEEFF; ">
+    <div class="book-list-wrapper">
+
+        <div class="row justify-content-center" style="">
+            <h1 class="text-center p-2" style="background-color: #0099ff; color: #fff; width: 100%; font-weight: 900 ">
+                قائمة العظات</h1>
+            <table class="table border rounded hover mt-5 justify-content-center">
+                <tr class="">
+                    <th class="table-borders" style="color: #0099ff">
+                        <img src="{% static 'icons/play-btn.svg' %}" alt="...">Sermon
+                    </th>
+                    <!--<th class="table-borders" style="color: #0099ff">Category</th>-->
+                    <!--<th>Description</th>-->
+                </tr>
+                {% for sermon in other_sermons %}
+                <tr>
+                    <td class="table-borders">
+                        <div class="row justify-content-start ps-3 pe-3">
+                            <h6 class="row justify-content-start">{{sermon.title}}</h6>
+                            <audio controls class="" style="height: 25px; background-color: #0099ff">
+                                {% if sermon.audio %}
+                                <source src="{{ sermon.audio.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                                {% elif sermon.video %}
+                                <source src="{{ sermon.video.url }}" type="video/mp4">
+                                Your browser does not support the audio element.
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                            </audio>
+                        </div>
+                    </td>
+                    <!--<td class="table-borders">-->
+                        <!--{% if sermon.category %}-->
+                        <!--<a style="text-decoration: ;" class="m-1 pdf-link" href="media/{{sermon.category}}">{{sermon.category}}</a>-->
+                        <!--{% else %}-->
+                        <!--<div></div>-->
+                        <!--{% endif %}-->
+                    <!--</td>-->
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <!--Pagination-->
+        <div class="pagination row text-center mt-5 mb-5">
+            {% if is_paginated %}
+            <ul class="pagination text-center justify-content-center m-auto ps-5 pe-5" style="">
+                {% if page_obj.has_previous %}
+                <li class="m- p-1 ps-3 pe-3 pagination-links">
+                    <a class="" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                </li>
+                {% else %}
+                <li class="disabled m- p-1 ps-3 pe-3 pagination-links">
+                    <span class="">&laquo;</span>
+                </li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                <li class="active m- p-1 ps-3 pe-3 pagination-links pagination-focus">
+                    <span class="">{{ i }} <span class="sr-only"></span></span>
+                </li>
+                {% else %}
+                <li class="m- p-1 ps-3 pe-3 pagination-links">
+                    <a class="" href="?page={{ i }}">{{ i }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="m- p-1 ps-3 pe-3 pagination-links" style="">
+                    <a class="" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                </li>
+                {% else %}
+                <li class="disabled m- p-1 ps-3 pe-3 pagination-links">
+                    <span class="">&raquo;</span>
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+        <!--Pagination end-->
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<div style="margin-bottom: 0px"> {% include "footer.html" %}</div> {% endblock %}
+
+{% block scripts %}  {% endblock %}

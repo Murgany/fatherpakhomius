@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %} {% include 'base.html' %} {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="book-list-wrapper">
+        <div class="row mt-5 m-auto mb-3 p-2 rounded"  style="border: 1px solid #0099ff; background-color: #DAEEFF;">
+            <h1 class="text-center p-2  books-header" style="">
+            قائمة الكتب </h1>
+            {% for book in other_books %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 p-2 m-auto text-center">
+                <a href="media/{{book.book}}" target="_blank" class="pdf-link">
+                    <div class="row d-flex card-heade justify-content-center">{{book.title}}</div>
+                   <div class="ro d-flex card-body justify-content-center">
+                       <img src="{{ book.image.url }}" alt="pdf" class="img-fluid"
+                         style="border-radius: 5px;">
+                   </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <!--Pagination-->
+        <div class="pagination row d-flex text-center mt-5 mb-5">
+            {% if is_paginated %}
+            <ul class="pagination text-center justify-content-center m-auto ps-5 pe-5">
+                {% if page_obj.has_previous %}
+                <li class="m- p-1 ps-3 pe-3 pagination-links"><a class="" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                <li class="disabled m- p-1 ps-3 pe-3 pagination-links"><span class="">&laquo;</span></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                <li class="active m- p-1 ps-3 pe-3 pagination-links pagination-focus"><span class="">{{ i }} <span class="sr-only" > </span></span></li>
+                {% else %}
+                <li class="m- p-1 ps-3 pe-3 pagination-links"><a class="" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="m- p-1 ps-3 pe-3 pagination-links" style=""><a class="" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                <li class="disabled m- p-1 ps-3 pe-3 pagination-links"><span class="">&raquo;</span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+        <!--Pagination end-->
+    </div>
+
+    <!--<div class="row justify-content-center mt- mb-5" style="">-->
+    <!--<a class="text-center p-2" href="{% url 'index' %}"-->
+    <!--style="color: #0099ff; border-top: 1px solid #FF8192; border-bottom: 1px solid #FF8192; width: 200px">الرئيسية</a>-->
+    <!--</div>-->
+</div>
+
+{% endblock %}
+
+{% block footer %}  {% include "footer.html" %} {% endblock %}
+
+{% block scripts %} {% endblock %}
