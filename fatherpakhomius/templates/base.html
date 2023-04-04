@@ -1,96 +1,77 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+{% load i18n %}
+<!--<html lang="ar">-->
+<html lang="ar" dir="rtl">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1 shrink-to-fit=no"/>
-
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=material+icons">-->
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-
-    <title>father pakhomius official website</title>
-
-    <style>
-
-</style>
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+    <title>{% trans 'Father Pakhomius Official Website' %}</title>
 </head>
+
 <body>
 
 {% block navbar %}
-
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark"
-     style="background-color: #fff; border-bottom: 0.4px solid #0099ff;">
+<nav class="navbar navbar-expand-lg sticky-top navbg bg-gradient-primary navbar-dark">
     <div class="container-fluid">
-
-        <a style="background-color: #0099ff; border-radius: 30px; height: 37px; font-size: 16px;" class="navbar-brand p-2 ps-3 pe-3"
+        <a class="logo navbar-brand p-2 ps-3 pe-3"
            href="{% url 'index' %}">
-         <small class="text-white">Father Pakhomius</small>
+            <small class="text-white">{% trans 'Father Pakhomius' %}</small>
         </a>
-
-        <button style="border-color: #0099ff; border-radius: 30px; height: 37px;" class="navbar-toggler btn-sm" type="button"
+        <button style="border-radius: 30px; height: 37px;" class="navbar-toggler btn-sm text-ligh"
+                type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarsupportedcontent"
                 aria-controls="navbarsupportedcontent" aria-expanded="false" aria-label="toggle navigation">
-            <img style="color: #fff" src="{% static 'icons/list.svg' %}">
+            <img class="text-white" src="{% static 'icons/list.svg' %}" alt="">
         </button>
-
-        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarsupportedcontent" style="transition: all 1s ease;">
-
-            <ul class="navbar-nav m-auto mt-2 mb-lg-0 col-12 col-sm-7 col-md-12 col-lg-9 justify-content-center text-center">
+        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarsupportedcontent"
+             style="transition: all 1s ease;">
+            <ul class="navbar-nav m-auto mt-2 mb-lg-0 col-12 col-sm-7 col-md-12 col-lg-10 justify-content-center text-center">
                 <li class="nav-item">
-                    <a class="nav-link p-2 ps-2 pe-2 nav-link-color" aria-current="page" href="{% url 'index' %}" style=" color: #777">Home</a>
+                    <a class="nav-link p-2 ps-2 pe-2 nav-link-colo" aria-current="page" 
+                    href="{% url 'index' %}">{% trans 'Home' %}</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link p-2 ps-2 pe-2 " href="{% url 'sermons' %}" style="color: #777">Sermons</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'other_sermons' %}" style="color: #777">Other sermons</a>
+                    <a class="nav-link p-2 ps-2 pe-2 " href="{% url 'sermons' %}">{% trans 'Sermons' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'book_list' %}" style="color: #777">Books</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'other_books' %}" style="color: #777">Other books </a>
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'book_list' %}">{% trans 'Books' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'contact' %}" style="color: #777">Contact us</a>
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'contact' %}">{% trans 'Contact us' %}</a>
                 </li>
-                <li class="nav-item ms-3 me-3">
-                      <a class="nav-link mb-2 p-2 ps-3 pe-3" href="{% url 'liturgies' %}"
-                         style="color: #fff; background-color: #ff6500; border-radius: 30px; height: 37px; font-size: inherit; font-weight: inherit; ">Liturgy schedules</a>
+                <li class="nav-item">
+                    <a class="nav-link p-2 ps-2 pe-2" href="#">{% trans 'Categories' %}</a>
                 </li>
             </ul>
-
-            <form class="d-flex m-auto col-12 col-sm-7 col-md-10 col-lg-3 justify-content-end" role="search">
-                <input class="form-control me-2 search-bar" type="search" placeholder="search" aria-label="search">
-                <button style="background-color: #0099ff; border-radius: 30px;" class="btn text-white" type="submit">
-                    <img style="color: #fff" src="{% static 'icons/search.svg' %}">
+    
+            <form method="POST" action="{% url 'search-results' %}" class=" d-flex m-auto col-12 col-sm-7 col-md-10 col-lg-2 justify-content-end" role="search">
+                {% csrf_token %}
+                <input style="" name="searched" class="form-control bg-transparent me-2 search-bar" type="search" placeholder="{% trans 'search' %}" aria-label="search">
+                <button style="border-radius: 30px;" class="btn" type="submit">
+                    <img style="" src="{% static 'icons/search.svg' %}">
                 </button>
             </form>
-
         </div>
     </div>
 </nav>
 {% endblock %}
 
-{% block body %} {% endblock %}
+{% block body %}{% endblock %}
 
-{% block footer %} {% endblock %}
+<!-- <div class="botto">-->
+     {% block footer %}{% endblock %}
+<!-- </div>-->
 
 {% block scripts %}
-<!-- javascript bundle with popper -->
-<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"-->
-        <!--integrity="sha384-obqdvmmz9atkxiep9ticxs/z9fnfexidaytujmaebasjfuczsmkbssunqlmh/jp3"-->
-        <!--crossorigin="anonymous"></script>-->
-
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"-->
-        <!--integrity="sha384-idwe1+lcz02rou9k972gdyvl+aesn10+x7tbkgc9i5hftunz0wwnpclzo6p9vxnk"-->
-        <!--crossorigin="anonymous"></script>-->
 <script type="text/javascript" src="{% static 'bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'jquery-3.6.1.min.js' %}"></script>
-
 {% endblock %}
+
 </body>
 </html>

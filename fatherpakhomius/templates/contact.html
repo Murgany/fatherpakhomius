@@ -1,24 +1,22 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags i18n %}
 
 {% block navbar %} {% include 'base.html' %} {% endblock %}
 
 {% block body %}
 
-<div class="container-fluid m- p-0" style="background: #0099ff; border-bottom: 10px solid #fff">
-    <div class="row justify-content-center pt-5 m-0 p-2">
+<div class="container-fluid"
+     style="background-image:  url(/media/images/cross.png); background-position: center;">
 
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 m-0 p-1 mb-5 justify-content-center contact-form rounded">
-            <form method="post" class="p-0 me-3 ms-3 mt-4 mb-2"
-                  style="display: flex; flex-direction: column; justify-content: center;">
+    <div class="row justify-content-center pt-5">
+        <div class="card mx-3 p-3 pt-4">
+            <form method="post" class="text-default">
                 {% csrf_token %}
-                {{ form.as_table }}
-                <div class="row m-0 justify-content-center me-3 ms-3 mt-4 mb-3" style="height: 37px;">
-                    <input class="a page-links" type="submit" value="Send"
-                           style="border: none;">
+                {{ form | crispy }}
+                <div class="row justify-content-center my-4">
+                   <input class="btn sm btn-dark border-0 bg-gradient-red" type="submit" value="Send">
                 </div>
             </form>
-
         </div>
     </div>
 </div>

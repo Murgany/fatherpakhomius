@@ -1,62 +1,97 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block navbar %} {% include 'base.html' %} {% endblock %}
 
 {% block body %}
-
-<div class="container-fluid">
-    <div class="book-list-wrapper">
-        <div class="row mt-5 m-auto mb-3 p-2 rounded"  style="border: 1px solid #0099ff; background-color: #DAEEFF;">
-            <h1 class="text-center p-2  books-header" style="">
-            قائمة الكتب </h1>
-            {% for book in book_list %}
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 p-2 m-auto text-center">
-                <a href="media/{{book.book}}" target="_blank" class="pdf-link">
-                    <div class="row d-flex card-heade justify-content-center">{{book.title}}</div>
-                   <div class="ro d-flex card-body justify-content-center">
-                       <img src="{{ book.image.url }}" alt="pdf" class="img-fluid"
-                         style="border-radius: 5px;">
-                   </div>
-                </a>
+<div class="container-fluid mb-0 py-5 bg-lighter" style="">
+    <div class="row justify-content-center">
+        <div class="col-sm-10 col-xl-8  mt-5">
+            <div class="card bg-gradient-primary px-3">
+                <div class="card-header bg-transparent">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-12 col-sm-8">
+                            <h5 class="h5 text-white ls-1 mb-1">{% trans 'Books by father Pakhomius' %}</h5>
+                        </div>
+                        <div class="col-12 col-sm-4 text-right float-right justify-content-right">
+                            <a
+                                    class="btn btn-sm btn-neutral mb-1"
+                                    href="{% url 'other_books' %}"
+                            >{% trans 'Books by other fathers' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center pt-5">
+                    {% for book in book_list %}
+                    <div class="col-6 col-xs-6 col-sm-5 col-md-4 col-lg-3 ">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="media/{{book.book}}" target="_blank" class="pdf-link text-center">
+                                    {{book.title}}
+                                    <div class="mt-3">
+                                        <img src="{{ book.image.url }}" alt="pdf" class="img-fluid p-0 m-0 rounded">
+                                    </div>
+                                </a><br>
+                                {% if book.author %}
+                                <small>{{book.author}}</small>
+                                {% endif %}
+                                {% if book.category %}
+                                <div class="mt-2">
+                                 <small>{% trans 'Category' %}: {{book.category}}</small>
+                                </div>
+                                {% endif %}
+                                {% if book.description %}
+                                    <details>
+                                        <summary>{% trans 'Summary' %}</summary>
+                                        <p class="text-muted">{{book.description}}</p>
+                                    </details>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            {% endfor %}
         </div>
-        <!--Pagination-->
-        <div class="pagination row d-flex text-center mt-5 mb-5">
-            {% if is_paginated %}
-            <ul class="pagination text-center justify-content-center m-auto ps-5 pe-5">
-                {% if page_obj.has_previous %}
-                <li class="m- p-1 ps-3 pe-3 pagination-links"><a class="" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-                {% else %}
-                <li class="disabled m- p-1 ps-3 pe-3 pagination-links"><span class="">&laquo;</span></li>
-                {% endif %}
-                {% for i in paginator.page_range %}
-                {% if page_obj.number == i %}
-                <li class="active m- p-1 ps-3 pe-3 pagination-links pagination-focus"><span class="">{{ i }} <span class="sr-only" > </span></span></li>
-                {% else %}
-                <li class="m- p-1 ps-3 pe-3 pagination-links"><a class="" href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                <li class="m- p-1 ps-3 pe-3 pagination-links" style=""><a class="" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                {% else %}
-                <li class="disabled m- p-1 ps-3 pe-3 pagination-links"><span class="">&raquo;</span></li>
-                {% endif %}
-            </ul>
-            {% endif %}
-        </div>
-        <!--Pagination end-->
     </div>
-
-    <!--<div class="row justify-content-center mt- mb-5" style="">-->
-    <!--<a class="text-center p-2" href="{% url 'index' %}"-->
-    <!--style="color: #0099ff; border-top: 1px solid #FF8192; border-bottom: 1px solid #FF8192; width: 200px">الرئيسية</a>-->
-    <!--</div>-->
+    <!--Pagination-->
+    <!-- <div class="pagination row d-flex text-center mt-"> -->
+        {% if is_paginated %}
+        <ul class="pagination row text- justify-content-center m-auto px-">
+            {% if page_obj.has_previous %}
+            <li class="">
+                <a class="px-3 page-link"
+                   href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled px-3 page-link"><span class="">&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="active"><span class="pagination-focus px-3 page-link">{{ i }} <span
+                    class="sr-only"> </span></span></li>
+            {% else %}
+            <li class=""><a class="page-link px-3" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="">
+                <a class="page-link px-3"
+                   href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled px-3 text-whit page-link"><span class="">&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    <!-- </div> -->
+    <!--Pagination end-->
 </div>
-
 {% endblock %}
 
-{% block footer %}  {% include "footer.html" %} {% endblock %}
+{% block footer %} {% include "footer.html" %} {% endblock %}
 
-{% block scripts %} {% endblock %}
+{% block scripts %}
+{% endblock %}

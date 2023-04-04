@@ -1,85 +1,182 @@
 {% extends 'base.html' %}
-
-{% load static %}
+{% load i18n static %}
 
 {% block navbar %} {% include 'base.html' %} {% endblock %}
 
 {% block body %}
 
-<div class="container-fluid pb- p-0">
-
-    <div class="container-fluid justify-content-center">
+<div class="container-fluid">
+    <div class="row header-image">
         {% for sermon in page_obj %}
-        <div class="container-fluid p-0 ">
-            <div class="row">
-
-                <div class="col-12 col-sm-6 col-md-8 col-lg-8 header-image">
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4 col-lg-4 player m-0 p-0 ">
-                    {% for sermon in sermons %}
-                    <!--<div class="row m-0 p-0 justify-content-center" style="width: 100">-->
-                    <div class="row m-0 p-0 me-3 ms-3 mt-4 mb-3 justify-content-center mobile-bg">
-                        <h1 class="text-center mt-5 m-auto mb-3"
-                            style="width: 100%; font-weight: 900; color: #fff; "> أحدث عظات</h1>
-
+        <div class="col-12 col-sm-5 col-md-4 mt-5 my-aut">
+            {% for sermon in sermons %}
+            <div class="card m-aut mt-4 bg-gradient-default ">
+                <div class="card-header bg-transparent justify-content-between">
+                        <div class="col-auto">
+                            <div
+                                    class="icon icon-shape bg-gradient-red float-right rounded-circle shadow"
+                            >
+                                <i class="ni ni-active-30"></i>
+                            </div>
+                        </div>
+                    <div class="col-12">
+                        <h6 class="text-light">
+                            {% trans 'Chosen sermon' %}
+                        </h6>
                         {% if sermon.title %}
-                        <p class="mb-3 mt-3" style="color: #fff">
-                            {{sermon.title}}: {% if sermon.description %} <span style="color: #000">{{sermon.description}}</span>
-                            {% endif %}
-                        </p>
+                        <h5 class="text-light m-0">{{sermon.title}}</h5>
                         {% endif %}
-                        <audio controls class="" style="width: 100%; height: 37px ">
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center mobile-b">
+                        <audio controls preload="metadata" style="width: 100%; height: 30px">
                             {% if sermon.audio %}
-                            <source src="{{ sermon.audio.url }}" type="audio/mpeg">
+                            <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
                             Your browser does not support the audio element.
                             {% elif sermon.video %}
-                            <source src="{{ sermon.video.url }}" type="video/mp4">
+                            <source src="{{ sermon.video.url }}" type="video/mp4"/>
                             Your browser does not support the audio element.
                             {% else %}
                             <div></div>
                             {% endif %}
                         </audio>
-
-                        <!--pagination-->
-                        <div class="row justify-content-center text-center mb-3 mt-1">
-                            {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}" class="col sermon-pagination btn-sm">
-                                <img src="{% static 'icons/rewind-btn.svg' %}" alt="...">
-                            </a>
-                            {% endif %}
-                            {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}" class="col sermon-pagination btn-sm">
-                                <img class="text-right" src="{% static 'icons/fast-forward-btn.svg' %}" alt="...">
-                            </a>
-                            {% endif %}
-                        </div>
-                        <!--Pagination end-->
-                        <div class="row m-0 justify-content-center me-3 ms-3 mt-4 mb-3" style="height: 37px;">
-                            <a class="text-center btn-light p-1 sermons-button" href="{% url 'book_list' %}">جميع
-                                العظات</a>
-                        </div>
                     </div>
-                    {% endfor %}
-                    {% endfor %}
-
                 </div>
+                <!--pagination-->
+                <div class="row justify-content-center text-center mt-2">
+                    {% if page_obj.has_next %}
+                    <a
+                            href="?page={{ page_obj.next_page_number }}"
+                            class="col sermon-pagination btn-sm"
+                    >
+                        <img src="{% static 'icons/rewind-btn.svg' %}" alt="..."/>
+                    </a>
+                    {% endif %} {% if page_obj.has_previous %}
+                    <a
+                            href="?page={{ page_obj.previous_page_number }}"
+                            class="col sermon-pagination btn-sm"
+                    >
+                        <img
+                                class="text-right"
+                                src="{% static 'icons/fast-forward-btn.svg' %}"
+                                alt="..."
+                        />
+                    </a>
+                    {% endif %}
+                </div>
+                <!--Pagination end-->
+            </div>
+            {% endfor %}
 
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="header bg-gradient-primary top pb-6 pt-3">
+    <div class="container-fluid py-4">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-12 col-sm-6 ">
+                    <a
+                            class="btn btn-sm btn-light mb-1"
+                            href="{% url 'sermons' %}"
+                    >{% trans 'All sermons' %}</a>
+                    <a
+                            class="btn btn-sm btn-light mb-1"
+                            href="{% url 'other_sermons' %}"
+                    >{% trans 'Sermons by other fathers' %}</a>
+                </div>
+                <div class="text-right col-12 col-sm-6 d-none  d-sm-block">
+                    <h4 class="h4 text-white  mb-0">
+                        {% trans "Father Pakhomius' official website" %}</h4>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="latestBooks" class=""></div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row justify-content-center ">
+        <div class="col-sm-10  col-xl-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-7">
+                            <h5 class="h5 mb-0">{% trans 'Topic of the week' %}</h5>
+                        </div>
+                        <div class="col-5">
+                            <a href="#" class="btn btn-sm bg-gradient-red btn-dark border-0">{% trans 'See all topics' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 d-flex p-3 px-4 justify-content-center">
+                        <img class="img-fluid px-2" src="media/images/ph.png"/>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="px-3 pt-3">ما هو "لوريم إيبسوم" ؟</h4>
+                        <p class="text-muted p-3">
+                            لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم
+                            في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس
+                            عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب
+                            بمثابة دليل أو مرجع شكلي لهذه الأحرف. خمسة قرون من الزمن لم تقضي على هذا النص، بل انه حتى
+                            صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد الإلكتروني. انتشر بشكل كبير في ستينيّات هذا
+                            القرن مع إصدار رقائق "ليتراسيت" (Letraset) البلاستيكية تحوي مقاطع من هذا النص، وعاد لينتشر
+                            مرة أخرى مؤخراَ مع ظهور برامج النشر الإلكتروني مثل "ألدوس بايج مايكر" (Aldus PageMaker)
+                            والتي حوت أيضاً على نسخ من نص لوريم إيبسوم.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5 bottom bg-lighter mb-0" style="">
+    <div class="row justify-content-center pt-5 mt-5">
+        <div class="col-sm-10 col-xl-8 mt-5">
+            <div class="card bg-gradient-primar ">
+                <div class="card-header bg-transparent">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-12 col-sm-4">
+                            <h4 class="h4 text- ls-1 mb-1">{% trans 'Latest books' %}</h4>
+                        </div>
+                        <div class="col-12 col-sm-8 text-right float-right justify-content-right">
+                            <a
+                                    class="btn btn-sm bg-gradient-red btn-neutra btn-dark border-0 mb-1"
+                                    href="{% url 'book_list' %}"
+                            >{% trans 'Books by father Pahkomius' %}</a>
+                            <a
+                                    class="btn btn-sm bg-gradient-red btn-neutra btn-dark border-0 mb-1"
+                                    href="{% url 'other_books' %}"
+                            >{% trans 'Books by other fathers' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="my-4" id="latestBooks"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
-{% block footer %}  {% include "footer.html" %} {% endblock %}
+<div class="">{% block footer %} {% include "footer.html" %} {% endblock %}</div>
 
 {% block scripts %}
 <script>
-$(document).ready(function(){
-    $("#latestBooks").load("latest_books");
-});
+        $(document).ready(function () {
+          $("#latestBooks").load("latest_books");
+          $("#latestSermons").load("latest_sermons");
+        });
+
+
 </script>
+
 {% endblock %}

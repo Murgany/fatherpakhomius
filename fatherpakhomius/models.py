@@ -46,6 +46,7 @@ class SermonsByOtherFathers(models.Model):
     video = models.FileField(upload_to='video', blank=True, null=True)
     image = models.ImageField(upload_to='images', blank=True, null=True)
     description = models.TextField(max_length=5000, blank=True, null=True)
+    external_link = models.URLField(max_length=200, blank=True, null=True)
 
     def display_category(self):
         """Creates a string for the Genre. This is required to display genre in Admin."""
@@ -68,6 +69,13 @@ class Book(models.Model):
     image = models.ImageField(upload_to='images', blank=True, null=True)
     description = models.TextField(max_length=5000, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular book instance."""
+        return reverse('book-detail', args=[str(self.id)])
+
 
 class BooksByOtherFathers(models.Model):
     title = models.CharField(max_length=200)
@@ -76,6 +84,7 @@ class BooksByOtherFathers(models.Model):
     book = models.FileField(upload_to='books', null=True)
     image = models.ImageField(upload_to='images', blank=True, null=True)
     description = models.TextField(max_length=5000, blank=True, null=True)
+    external_link = models.URLField(max_length=200, blank=True, null=True)
 
     def display_category(self):
         """Creates a string for the Genre. This is required to display category in Admin."""
@@ -85,13 +94,7 @@ class BooksByOtherFathers(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a particular book instance."""
-        return reverse('book-detail', args=[str(self.id)])
+        return reverse('other-books-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.title
-
-
-class Litergie(models.Model):
-    day = models.CharField(max_length=30)
-    time = models.TimeField(null=True)
-    comment = models.TextField(max_length=1000)

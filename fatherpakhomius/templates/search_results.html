@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block navbar %} {% include 'base.html' %} {% endblock %}
+
+{% block body %}
+<div class="container-fluid py-5 justify-content-center"
+     style="background-image:  url(/media/images/cross.png); background-position: center;">
+    <h1 class="text-center my-3">Search results</h1>
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-sm-8 col-md-6">
+            <div class="card-header my-3 bg-gradient-primary">
+                <div class="row align-items-center">
+                    <div class="col-12 col-sm-8">
+                        <h4 class="h4 text-white">{% trans ' Sermons ' %}</h4>
+                    </div>
+                </div>
+            </div>
+            {% if sermons or other_sermons %}
+            {% if sermons %}
+            <div class="card ">
+                <div class="card-header bg-lighter">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-8">
+                            <h5 class="h5 text-whit ls-1 mb-1">{% trans 'From sermons by father Pakhomius' %}</h5>
+                        </div>
+                        <div class="col-12 col-sm-4 text-right float-right justify-content-right">
+                            <a class="btn btn-sm bg-gradient-red btn-dark border-0"
+                               href="{% url 'sermons' %}"
+                            >{% trans 'Sermons by father Pakhomius' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table w-100 table-flush">
+                        {% for sermon in sermons %}
+                        <tbody>
+                        <tr>
+                            {% if sermon.title %}
+                            <h6 class="h6">{{sermon.title}}</h6>
+                            {% endif %}
+                            <audio controls class="w-100">
+                                {% if sermon.audio %}
+                                <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
+                                Your browser does not support the audio element.
+                                {% elif sermon.video %}
+                                <source src="{{ sermon.video.url }}" type="video/mp4"/>
+                                Your browser does not support the audio element.
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                            </audio>
+                            <br>
+                            {% if sermon.speaker %}
+                            <small>{{book.speaker}}</small>
+                            {% endif %}
+                            {% if sermon.category %}
+                            <small>{% trans 'Category' %}: {{ sermon.category }}</small>
+                            {% endif %}
+                            {% if sermon.description %}
+                            <details>
+                                <summary>{% trans 'Summary' %}</summary>
+                                <small class="text-muted mb-3">{{sermon.description}}</small>
+                            </details>
+                            {% endif %}
+                        </tr>
+                        </tbody>
+                        <hr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% if is_paginated %}
+                <ul class="pagination row justify-content-center m-auto px-">
+                    {% if page_obj.has_previous %}
+                    <li class="">
+                        <a class="px-3 page-link"
+                           href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled px-3 page-link"><span class="">&laquo;</span></li>
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="active"><span class="pagination-focus px-3 page-link">{{ i }} <span
+                            class="sr-only"> </span></span></li>
+                    {% else %}
+                    <li class=""><a class="page-link px-3" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="">
+                        <a class="page-link px-3"
+                           href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled px-3 text-whit page-link"><span class="">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+                <!--Pagination end-->
+            </div>
+            {% endif %}
+
+            {% if other_sermons %}
+            <div class="card ">
+                <div class="card-header bg-lighter">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-8">
+                            <h5 class="h5 text-whit ls-1 mb-1">{% trans 'From sermons by other fathers' %}</h5>
+                        </div>
+                        <div class="col-12 col-sm-4 text-right float-right justify-content-right">
+                            <a class="btn btn-sm bg-gradient-red btn-dark border-0"
+                               href="{% url 'other_sermons' %}"
+                            >{% trans 'Sermons by other fathers' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table w-100 table-flush">
+                        {% for sermon in other_sermons %}
+                        <tbody>
+                        <tr>
+                            {% if sermon.title %}
+                            <h6 class="h6">{{sermon.title}}</h6>
+                            {% endif %}
+                            <audio controls class="w-100" style="">
+                                {% if sermon.audio %}
+                                <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
+                                Your browser does not support the audio element.
+                                {% elif sermon.video %}
+                                <source src="{{ sermon.video.url }}" type="video/mp4"/>
+                                Your browser does not support the audio element.
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+                            </audio><br>
+                            {% if sermon.speaker %}
+                            <small>{{sermon.speaker}}</small>
+                            {% endif %}
+                            {% if sermon.category %}
+                            <small>{% trans 'Category' %}: {{sermon.category}}</small>
+                            {% endif %}
+                            {% if sermon.description %}
+                            <details>
+                                <summary>{% trans 'Summary' %}</summary>
+                                <p class="text-muted mb-3">{{sermon.description}}</p>
+                            </details>
+                            {% endif %}
+                        </tr>
+                        </tbody>
+                        <hr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% if is_paginated %}
+                <ul class="pagination row justify-content-center m-auto px-">
+                    {% if page_obj.has_previous %}
+                    <li class="">
+                        <a class="px-3 page-link"
+                           href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled px-3 page-link"><span class="">&laquo;</span></li>
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="active"><span class="pagination-focus px-3 page-link">{{ i }} <span
+                            class="sr-only"> </span></span></li>
+                    {% else %}
+                    <li class=""><a class="page-link px-3" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="">
+                        <a class="page-link px-3"
+                           href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled px-3 text-whit page-link"><span class="">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+                <!--Pagination end-->
+            </div>
+            {% endif %}
+
+            {% else %}
+            <h5>No sermon matches your search!</h5>
+            {% endif %}
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+            <div class="card-header my-3 bg-gradient-primary">
+                <div class="row align-items-center">
+                    <div class="col-12 col-sm-8">
+                        <h4 class="h4 text-white ls-1 mb-1">{% trans ' Books ' %}</h4>
+                    </div>
+                </div>
+            </div>
+            {% if books or other_books %}
+            {% if books %}
+            <div class="card">
+                <div class="card-header bg-lighter">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-8">
+                            <h5 class="h5 ls-1">{% trans 'From books by father Pakhomius' %}</h5>
+                        </div>
+                        <div class="col-12 col-sm-4 text-right float-right">
+                            <a
+                                    class="btn btn-sm bg-gradient-red border-0 btn-dark"
+                                    href="{% url 'book_list' %}"
+                            >{% trans 'Books by father Pakhomius' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center pt-4">
+                    {% for book in books %}
+                    <div class="col-auto col-md- ">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h6 class="h6 mb-0">{{book.title}}</h6>
+                                        <a href="media/{{book.book}}" target="_blank" class="pdf-link text-center">
+                                            Download pdf
+                                        </a><br>
+                                        {% if book.author %}
+                                        <small>{{book.author}}</small>
+                                        {% endif %}
+                                        {% if book.category %}
+                                        <small>{% trans 'Category' %} : {{book.category}}</small>
+                                        {% endif %}
+                                        {% if book.description %}
+                                        <details>
+                                            <summary>{% trans 'Summary' %}</summary>
+                                            <p class="text-muted">{{book.description}}</p>
+                                        </details>
+                                        {% else %}
+                                        <div></div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mt-">
+                                            <img src="{{ book.image.url }}" alt="pdf"
+                                                 class="img-fluid p-0 w-50 m-0 rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif%}
+
+            {% if other_books %}
+            <div class="card">
+                <div class="card-header bg-lighter">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-7">
+                            <h5 class="h5 ls-1 mb-1">{% trans 'From books by other fathers' %}</h5>
+                        </div>
+                        <div class="col-12 col-sm-5 text-right float-right">
+                            <a
+                                    class="btn btn-sm bg-gradient-red border-0 btn-dark"
+                                    href="{% url 'other_books' %}"
+                            >{% trans 'Books by other fathers' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center pt-4">
+                    {% for book in other_books %}
+                    <div class="col-auto col-md- ">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h6 class="h6 mb-0">{{book.title}}</h6>
+                                        <a href="media/{{book.book}}" target="_blank" class="pdf-link text-center">
+                                            Download pdf
+                                        </a><br>
+                                        {% if book.author %}
+                                        <small>{{book.author}}</small>
+                                        {% endif %}
+                                        {% if book.category %}
+                                        <small>{% trans 'Category' %}: {{book.category}}</small>
+                                        {% endif %}
+                                        {% if book.description %}
+                                            <details>
+                                                <summary>{% trans 'Summary' %}</summary>
+                                                <p class="text-muted">{{book.description}}</p>
+                                            </details>
+                                        {% else %}
+                                        <div></div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mt-">
+                                            <img src="{{ book.image.url }}" alt="pdf"
+                                                 class="img-fluid p-0 w-50 m-0 rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% else %}
+            <h5>No book matches your search!</h5>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %} {% include "footer.html" %} {% endblock %}
+
+{% block scripts %}
+{% endblock %}
