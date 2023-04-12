@@ -7,17 +7,18 @@
 
 <div class="container-fluid"
      style="background-image:  url(/media/images/cross.png); background-position: center;">
-
     <div class="row justify-content-center pt-5">
+        <div class="col-12 col-sm-9 col-lg-6 "> 
         <div class="card mx-3 p-3 pt-4">
             <form method="post" class="text-default">
                 {% csrf_token %}
-                {{ form | crispy }}
+                {{ contact_form | crispy }}
                 <div class="row justify-content-center my-4">
                    <input class="btn sm btn-dark border-0 bg-gradient-red" type="submit" value="Send">
                 </div>
             </form>
         </div>
+    </div>
     </div>
 </div>
 

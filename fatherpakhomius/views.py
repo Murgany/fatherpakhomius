@@ -1,14 +1,13 @@
 import json
 from django.views.generic import ListView
-from .models import Sermon, Book, SermonCategory, BookCategory, SermonsByOtherFathers, BooksByOtherFathers
+from .models import Sermon, Book, SermonCategory, BookCategory, SermonsByOtherFather, BooksByOtherFather, ChosenSermon, UserMessage
 from django.shortcuts import render, redirect
-from .forms import ContactForm
+from .forms import ContactForm, UserMessageForm
 from django.utils.translation import gettext_lazy as _
 from django.utils import translation
-
+from .forms import UserMessageForm
 from django.views import generic
-
-
+from django.contrib import messages
 # language = 'ar'
 # translation.activate(language)
 
@@ -19,8 +18,8 @@ def search_results(request):
         searched = request.POST['searched']
         books = Book.objects.filter(description__icontains=searched, title__icontains=searched)
         sermons = Sermon.objects.filter(description__icontains=searched, title__icontains=searched)
-        other_sermons = SermonsByOtherFathers.objects.filter(description__icontains=searched, title__icontains=searched)
-        other_books = BooksByOtherFathers.objects.filter(description__icontains=searched, title__icontains=searched)
+        other_sermons = SermonsByOtherFather.objects.filter(description__icontains=searched, title__icontains=searched)
+        other_books = BooksByOtherFather.objects.filter(description__icontains=searched, title__icontains=searched)
 
         context = {
             'searched': searched,
@@ -38,10 +37,11 @@ class BookDetailView(generic.DetailView):
 
 
 class IndexView(ListView):
-    model = Sermon
+    model = ChosenSermon
     template_name = 'index.html'
-    context_object_name = 'sermons'
-    queryset = Sermon.objects.all().order_by('-id')
+    context_object_name = 'chosen_sermons'
+    queryset = ChosenSermon.objects.all().order_by('-id')
+    # queryset = ChosenSermon.objects.prefetch_related('sermon_name').order_by('-id')
     paginate_by = 1
 
 
@@ -51,11 +51,6 @@ class LatestSermons(ListView):
     context_object_name = 'latest_sermons'
     queryset = Sermon.objects.all().order_by('-id')
     paginate_by = 5
-    # def get_context_data(self, **kwargs):
-    # context = super().get_context_data(**kwargs)
-    # context['qs_to_json'] = json.dumps(list(Sermon.objects.values()))
-    # # context['qs_to_json'] = Sermon.objects.values()
-    # return context
 
 
 # All sermons list view
@@ -66,6 +61,13 @@ class SermonsView(ListView):
     queryset = Sermon.objects.all().order_by('-id')
     paginate_by = 2
 
+# # Chosen sermons list view
+# class ChosenSermon(ListView):
+#     model = ChosenSermon
+#     template_name = "index.html"
+#     context_object_name = 'chosen_sermon'
+#     queryset = ChosenSermon.objects.all().order_by('-id')
+#     paginate_by = 1
 
 # All books list view
 class BookListView(ListView):
@@ -87,18 +89,18 @@ class LatestBookListView(ListView):
 
 #  List of Sermons by other fathers view
 class OtherSermonsView(ListView):
-    model = SermonsByOtherFathers
+    model = SermonsByOtherFather
     template_name = "other_sermons.html"
     context_object_name = 'other_sermons'
-    queryset = SermonsByOtherFathers.objects.all().order_by('-id')
+    queryset = SermonsByOtherFather.objects.all().order_by('-id')
     paginate_by = 1
 
 
 class OtherBooksView(ListView):
-    model = BooksByOtherFathers
+    model = BooksByOtherFather
     template_name = "other_books.html"
     context_object_name = 'other_books'
-    queryset = BooksByOtherFathers.objects.all().order_by('-id')
+    queryset = BooksByOtherFather.objects.all().order_by('-id')
     paginate_by = 1
 
 
@@ -106,18 +108,35 @@ from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import HttpResponse, HttpResponseRedirect
 
 
+# def contactView(request):
+#     if request.method == "GET":
+#         form = ContactForm()
+#     else:
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data[_("subject")]
+#             email_address = form.cleaned_data[_("email_address")]
+#             message = form.cleaned_data[_('message')]
+#             try:
+#                 send_mail(subject, message, email_address, ["fathepakhomius@gmail.com"])
+#             except BadHeaderError:
+#                 return HttpResponse("Invalid header found.")
+#             return redirect("index")
+#     return render(request, "contact.html", {"form": form})
+
+
 def contactView(request):
-    if request.method == "GET":
-        form = ContactForm()
-    else:
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            subject = form.cleaned_data[_("subject")]
-            email_address = form.cleaned_data[_("email_address")]
-            message = form.cleaned_data[_('message')]
-            try:
-                send_mail(subject, message, email_address, ["fathepakhomius@gmail.com"])
-            except BadHeaderError:
-                return HttpResponse("Invalid header found.")
-            return redirect("index")
-    return render(request, "contact.html", {"form": form})
+    # pass
+    if request.method == 'POST':
+        contact_form = UserMessageForm(request.POST)
+        if contact_form.is_valid():
+            contact_form.save()
+
+            messages.success(request, _(('Your message was successfully sent!.')))
+            return redirect('index')
+        else:
+            messages.error(request, _(('Error sending message!.')))
+
+        # return redirect('index')
+    contact_form = UserMessageForm()
+    return render(request=request, template_name='contact.html', context={'contact_form': contact_form})

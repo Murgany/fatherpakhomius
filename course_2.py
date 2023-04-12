@@ -247,32 +247,32 @@
 #
 # play()
 
-def testEqual_2(a, b):
-    if a == b:
-        print('Pass')
-    else:
-        print(f'Fail, expected {a} but got {b}')
+# def testEqual_2(a, b):
+#     if a == b:
+#         print('Pass')
+#     else:
+#         print(f'Fail, expected {a} but got {b}')
 
 
-def testEqual(actual, expected, places=5):
-    '''
-    Does the actual value equal the expected value?
-    For floats, places indicates how many places, right of the decimal, must be correct
-    '''
-    if isinstance(expected, float):
-        if abs(actual - expected) < 10 ** (-places):
-            print('Pass')
-            return True
-    else:
-        if actual == expected:
-            print('Pass *** RuneStone')
-            return True
-    print(f'Test Failed: expected {actual} but got {expected}')
-    return False
+# def testEqual(actual, expected, places=5):
+#     '''
+#     Does the actual value equal the expected value?
+#     For floats, places indicates how many places, right of the decimal, must be correct
+#     '''
+#     if isinstance(expected, float):
+#         if abs(actual - expected) < 10 ** (-places):
+#             print('Pass')
+#             return True
+#     else:
+#         if actual == expected:
+#             print('Pass *** RuneStone')
+#             return True
+#     print(f'Test Failed: expected {actual} but got {expected}')
+#     return False
 
 
-def square(x):
-    return x * x
+# def square(x):
+#     return x * x
 
 # my_test = testEqual(square(9), 100)
 # my_test_2 = testEqual_2(square(-10), 100)
@@ -295,19 +295,19 @@ def square(x):
 # assert distance(1, 2, 1, 2) == 0
 # assert distance(1,2, 4,6) == 5
 
-class Rectangle:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
+# class Rectangle:
+#     def __init__(self, width, height):
+#         self.width = width
+#         self.height = height
 
-    def get_area(self):
-        return self.width * self.height
+#     def get_area(self):
+#         return self.width * self.height
 
-    def set_width(self, width):
-        self.width = width
+#     def set_width(self, width):
+#         self.width = width
 
-    def set_height(self, height):
-        self.height = height
+#     def set_height(self, height):
+#         self.height = height
 
 # r = Rectangle(8, 4)
 # print('Area: ', r.get_area())
@@ -355,7 +355,7 @@ class Rectangle:
 #     print("Got an error", error_inst)
 
 
-import pandas as pd
+# import pandas as pd
 
 # info = {'Name': ['Rose','John', 'Jane', 'Mary'], 'ID': [1, 2, 3, 4], 'Department': ['Architect Group', 'Software Group', 'Design Team', 'Infrastructure'],
 #       'Salary':[100000, 80000, 50000, 60000]}
@@ -366,23 +366,23 @@ import pandas as pd
 
 # print(id_info)
 
-new_data = {'Name': ['David', 'Alex', 'Jessy', 'Peter'], 'Age': [21, 40, 24, 30], 'Country': ['Brazil', 'Egypt', 'Romania', 'Thailand'], 'Course': ['Python', 'JavaScript', 'C++', 'Java'], 'Marks': [79, 89, 90, 78]}
-new_data_1 = pd.DataFrame(new_data)
-print(new_data_1)
-a = new_data_1[['Name', 'Age']]
-b = new_data_1['Name'] # Series use one pair of []
+# new_data = {'Name': ['David', 'Alex', 'Jessy', 'Peter'], 'Age': [21, 40, 24, 30], 'Country': ['Brazil', 'Egypt', 'Romania', 'Thailand'], 'Course': ['Python', 'JavaScript', 'C++', 'Java'], 'Marks': [79, 89, 90, 78]}
+# new_data_1 = pd.DataFrame(new_data)
+# print(new_data_1)
+# a = new_data_1[['Name', 'Age']]
+# b = new_data_1['Name'] # Series use one pair of []
 # print(a)
 # print(b)
 # loc[row_label, column_label]
-c = new_data_1.loc[0, 'Name']
+# c = new_data_1.loc[0, 'Name']
 # xx = new_data_1.loc['Alex', 'Course']
 # print(xx)
 # print(c)
 # iloc[row_index, column_index]
-d = new_data_1.iloc[0, 4]
+# d = new_data_1.iloc[0, 4]
 # print(d)
 
-e = new_data_1.set_index("Name")
+# e = new_data_1.set_index("Name")
 # print(e)
 # print(new_data_1.head())
 # slicing
@@ -392,8 +392,8 @@ e = new_data_1.set_index("Name")
 
 # print(new_data_1.loc['David':'Jessy', 'Name':'Country'])
 
-csv_path = 'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0101EN-SkillsNetwork/labs/Module%204/data/TopSellingAlbums.csv'
-df = pd.read_csv(csv_path)
+# csv_path = 'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0101EN-SkillsNetwork/labs/Module%204/data/TopSellingAlbums.csv'
+# df = pd.read_csv(csv_path)
 # print(df)
 # print(df.head())
 # must  install xlrd
@@ -401,17 +401,56 @@ df = pd.read_csv(csv_path)
 # df = pd.read_excel(xlsx_path)
 # print(df.head())
 # print(df[['Length']])
-var = '01234567'
+# var = '01234567'
 # print(var[::2])
-import numpy as np
+# import numpy as np
 # xx =np.array([0,1])
 # zz =np.array([1,0])
 # yy = np.dot(xx,zz)
 # print(yy)
 
-X=np.array([[1,0],[0,1]])
-Y=np.array([[2,1],[1,2]])
-z = np.dot(X,Y)
-# print(z)
-# print('1,2,3,4'.split(','))
-print("This is line C\n")
+# X=np.array([[1,0],[0,1]])
+# Y=np.array([[2,1],[1,2]])
+# z = np.dot(X,Y)
+# # print(z)
+# # print('1,2,3,4'.split(','))
+# print("This is line C\n")
+
+
+# def check_anagram(str1, str2):
+#     str1 = str1.replace(" ", "")
+#     str2 = str2.replace(" ", "")
+
+#     if len(str1) != len(str2):
+#        return False
+    
+#     sorted_str1 = sorted(list(str1))
+#     sorted_str2 = sorted(list(str2))
+
+#     if sorted_str1 == sorted_str2:
+#         return True
+#     else:
+#         return False
+    
+# str1 = 'madam'
+# str2 ='damam'
+
+# if check_anagram(str1, str2):
+#     print(f"{str1} and {str2} are anagrams")
+# else:
+#     print(f"{str1} and {str2} are NOT anagrams")
+
+
+def two_sum(a, b):
+    return a + b
+a = 7
+b = 8
+# entries = a + b
+target = 15
+
+if two_sum(a, b) == target:
+    print(f"7 + 8 = {target}")
+else:
+    print("the 2 sums are not equal to the targhet")
+    
+    

@@ -7,9 +7,10 @@
 
 <div class="container-fluid">
     <div class="row header-image">
+        {% if chosen_sermons %}
         {% for sermon in page_obj %}
         <div class="col-12 col-sm-5 col-md-4 mt-5 my-aut">
-            {% for sermon in sermons %}
+            {% for sermon in chosen_sermons %}
             <div class="card m-aut mt-4 bg-gradient-default ">
                 <div class="card-header bg-transparent justify-content-between">
                         <div class="col-auto">
@@ -23,10 +24,10 @@
                         <h6 class="text-light">
                             {% trans 'Chosen sermon' %}
                         </h6>
-                        {% if sermon.title %}
-                        <h5 class="text-light m-0">{{sermon.title}}</h5>
+                        {% if sermon.sermon_name %}
+                        <h5 class="text-light m-0">{{sermon.sermon_name}}</h5>
+                        
                         {% endif %}
-<!--                        </div>-->
                     </div>
                 </div>
                 <div class="card-body">
@@ -39,7 +40,7 @@
                             <source src="{{ sermon.video.url }}" type="video/mp4"/>
                             Your browser does not support the audio element.
                             {% else %}
-                            <div></div>
+                            <div>No audio</div>
                             {% endif %}
                         </audio>
                     </div>
@@ -73,6 +74,7 @@
 
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </div>
 <div class="header bg-gradient-primary top pb-6 pt-3">
@@ -81,11 +83,11 @@
             <div class="row align-items-center py-4">
                 <div class="col-12 col-sm-6 ">
                     <a
-                            class="btn btn-sm btn-light mb-1"
+                            class="btn btn-sm btn-neutral mb-1"
                             href="{% url 'sermons' %}"
                     >{% trans 'All sermons' %}</a>
                     <a
-                            class="btn btn-sm btn-light mb-1"
+                            class="btn btn-sm btn-neutral mb-1"
                             href="{% url 'other_sermons' %}"
                     >{% trans 'Sermons by other fathers' %}</a>
                 </div>
@@ -108,7 +110,7 @@
                         <div class="col-7">
                             <h5 class="h5 mb-0">{% trans 'Topic of the week' %}</h5>
                         </div>
-                        <div class="col-5">
+                        <div class="col-5 text-right">
                             <a href="#" class="btn btn-sm bg-gradient-red btn-dark border-0">{% trans 'See all topics' %}</a>
                         </div>
                     </div>

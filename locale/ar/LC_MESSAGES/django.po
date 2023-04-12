@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-04 18:37+0200\n"
+"POT-Creation-Date: 2023-04-12 22:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,197 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: config/settings.py:118
+#: config/settings.py:130
 msgid "Arabic"
 msgstr "عربي"
 
-#: config/settings.py:119
+#: config/settings.py:131
 msgid "English"
 msgstr "الانجليزية"
 
-#: fatherpakhomius/templates/base.html:14
-msgid "Father Pakhomius Official Website"
-msgstr "الموقع الرسمي لأبونا باخوميوس"
+#: config/settings.py:186
+msgid "Site administration"
+msgstr ""
 
-#: fatherpakhomius/templates/base.html:24
-msgid "Father Pakhomius"
-msgstr "أبونا باخوميوس"
+#: config/settings.py:226
+msgid "View site"
+msgstr "عرض الموقع"
 
-#: fatherpakhomius/templates/base.html:37
-msgid "Home"
-msgstr "الرئيسية"
+#: fatherpakhomius/models.py:7
+msgid "sermon category name"
+msgstr "اسم الفئة "
 
-#: fatherpakhomius/templates/base.html:40
+#: fatherpakhomius/models.py:8 fatherpakhomius/models.py:25
+#: fatherpakhomius/models.py:47 fatherpakhomius/models.py:77
+#: fatherpakhomius/models.py:105 fatherpakhomius/models.py:128
+#: fatherpakhomius/models.py:155 fatherpakhomius/models.py:170
+msgid "date_created"
+msgstr ""
+
+#: fatherpakhomius/models.py:12
+msgid "Sermon Category"
+msgstr "فئة العظات"
+
+#: fatherpakhomius/models.py:13
+msgid "Sermon Categories"
+msgstr "فئات العظات"
+
+#: fatherpakhomius/models.py:24
+msgid "book category name"
+msgstr "اسم الفئة "
+
+#: fatherpakhomius/models.py:29
+msgid "Book Category"
+msgstr "فئة الكتب"
+
+#: fatherpakhomius/models.py:30
+msgid "Book Categories"
+msgstr "فئات الكتب"
+
+#: fatherpakhomius/models.py:41 fatherpakhomius/models.py:68
+msgid "sermon title"
+msgstr "اسم العظة"
+
+#: fatherpakhomius/models.py:42 fatherpakhomius/models.py:69
+#: fatherpakhomius/models.py:152
+msgid "speaker"
+msgstr "المتحدث"
+
+#: fatherpakhomius/models.py:43 fatherpakhomius/models.py:71
+#: fatherpakhomius/models.py:153
+msgid "sermon category"
+msgstr "فئة العظات"
+
+#: fatherpakhomius/models.py:44 fatherpakhomius/models.py:72
+#: fatherpakhomius/models.py:154
+msgid "sermon audio"
+msgstr "العظة"
+
+#: fatherpakhomius/models.py:45 fatherpakhomius/models.py:73
+msgid "video"
+msgstr "فيديو"
+
+#: fatherpakhomius/models.py:46 fatherpakhomius/models.py:75
+#: fatherpakhomius/models.py:104 fatherpakhomius/models.py:126
+msgid "description"
+msgstr "شرح قصير"
+
+#: fatherpakhomius/models.py:50
+msgid "Sermon"
+msgstr "عظة"
+
+#: fatherpakhomius/models.py:51 fatherpakhomius/templates/base.html:38
 msgid "Sermons"
 msgstr "عظات"
 
-#: fatherpakhomius/templates/base.html:43
+#: fatherpakhomius/models.py:70 fatherpakhomius/models.py:100
+#: fatherpakhomius/models.py:122
+msgid "author"
+msgstr "اسم الكاتب"
+
+#: fatherpakhomius/models.py:76 fatherpakhomius/models.py:127
+msgid "external link"
+msgstr "رابط خارجي"
+
+#: fatherpakhomius/models.py:81
+msgid "Sermons by other father"
+msgstr "عظة ﻷب آخر "
+
+#: fatherpakhomius/models.py:82 fatherpakhomius/templates/index.html:92
+#: fatherpakhomius/templates/other_sermons.html:17
+#: fatherpakhomius/templates/search_results.html:115
+#: fatherpakhomius/templates/sermons.html:22
+msgid "Sermons by other fathers"
+msgstr "عظات ﻵباء آخرين "
+
+#: fatherpakhomius/models.py:99 fatherpakhomius/models.py:121
+msgid "book title"
+msgstr "اسم الكتاب"
+
+#: fatherpakhomius/models.py:101 fatherpakhomius/models.py:123
+msgid "book category"
+msgstr "الفئة"
+
+#: fatherpakhomius/models.py:102 fatherpakhomius/models.py:124
+msgid "book instance"
+msgstr " الكتاب"
+
+#: fatherpakhomius/models.py:103 fatherpakhomius/models.py:125
+msgid "image"
+msgstr "صورة"
+
+#: fatherpakhomius/models.py:109
+msgid "Book"
+msgstr "كتاب"
+
+#: fatherpakhomius/models.py:110 fatherpakhomius/templates/base.html:41
 msgid "Books"
 msgstr "كتب"
 
-#: fatherpakhomius/templates/base.html:46
+#: fatherpakhomius/models.py:132
+msgid "Book by another father"
+msgstr "كتاب ﻷب آخر"
+
+#: fatherpakhomius/models.py:133 fatherpakhomius/templates/book_list.html:20
+#: fatherpakhomius/templates/index.html:158
+#: fatherpakhomius/templates/other_books.html:14
+#: fatherpakhomius/templates/search_results.html:269
+msgid "Books by other fathers"
+msgstr " كتب ﻵباء آخرين"
+
+#: fatherpakhomius/models.py:151
+msgid "sermon name"
+msgstr "اسم العظة"
+
+#: fatherpakhomius/models.py:159
+msgid "Chosen Sermon"
+msgstr "العظة المختارة"
+
+#: fatherpakhomius/models.py:160
+msgid "Chosen Sermons"
+msgstr "العظات المختارة"
+
+#: fatherpakhomius/models.py:167
+msgid "subject"
+msgstr "الموضوع"
+
+#: fatherpakhomius/models.py:168
+msgid "email_address"
+msgstr "عنوان البريد"
+
+#: fatherpakhomius/models.py:169
+msgid "message"
+msgstr "الرسالة"
+
+#: fatherpakhomius/models.py:174
+msgid "User Message"
+msgstr " رسالة المستخدم"
+
+#: fatherpakhomius/models.py:175
+msgid "User Messages"
+msgstr "رسائل المستخدمون"
+
+#: fatherpakhomius/templates/base.html:12
+msgid "Father Pakhomius Official Website"
+msgstr "الموقع الرسمي لأبونا باخوميوس"
+
+#: fatherpakhomius/templates/base.html:22
+msgid "Father Pakhomius"
+msgstr "أبونا باخوميوس"
+
+#: fatherpakhomius/templates/base.html:35
+msgid "Home"
+msgstr "الرئيسية"
+
+#: fatherpakhomius/templates/base.html:44
 msgid "Contact us"
 msgstr "اتصل بنا"
 
-#: fatherpakhomius/templates/base.html:49
+#: fatherpakhomius/templates/base.html:47
 msgid "Categories"
 msgstr "الفئات"
 
-#: fatherpakhomius/templates/base.html:55
+#: fatherpakhomius/templates/base.html:53
 msgid "search"
 msgstr "ابحث"
 
@@ -63,13 +217,6 @@ msgstr "ابحث"
 #: fatherpakhomius/templates/search_results.html:213
 msgid "Books by father Pakhomius"
 msgstr "كتب لأبونا باخوميوس"
-
-#: fatherpakhomius/templates/book_list.html:20
-#: fatherpakhomius/templates/index.html:156
-#: fatherpakhomius/templates/other_books.html:14
-#: fatherpakhomius/templates/search_results.html:269
-msgid "Books by other fathers"
-msgstr "من قائمة كتب ﻵباء آخرين"
 
 #: fatherpakhomius/templates/book_list.html:40
 #: fatherpakhomius/templates/latest_books.html:18
@@ -94,38 +241,31 @@ msgstr "الفئة"
 msgid "Summary"
 msgstr "ملخص"
 
-#: fatherpakhomius/templates/index.html:24
+#: fatherpakhomius/templates/index.html:25
 msgid "Chosen sermon"
 msgstr "العظة المختارة"
 
-#: fatherpakhomius/templates/index.html:86
+#: fatherpakhomius/templates/index.html:88
 msgid "All sermons"
 msgstr "جميع العظات"
 
-#: fatherpakhomius/templates/index.html:90
-#: fatherpakhomius/templates/other_sermons.html:17
-#: fatherpakhomius/templates/search_results.html:115
-#: fatherpakhomius/templates/sermons.html:22
-msgid "Sermons by other fathers"
-msgstr "عظات ﻵباء آخرين "
-
-#: fatherpakhomius/templates/index.html:94
+#: fatherpakhomius/templates/index.html:96
 msgid "Father Pakhomius' official website"
 msgstr "الموقع الرسمي لأبونا باخوميوس"
 
-#: fatherpakhomius/templates/index.html:109
+#: fatherpakhomius/templates/index.html:111
 msgid "Topic of the week"
 msgstr "موضوع الاسبوع"
 
-#: fatherpakhomius/templates/index.html:112
+#: fatherpakhomius/templates/index.html:114
 msgid "See all topics"
 msgstr "جميع المواضيع"
 
-#: fatherpakhomius/templates/index.html:146
+#: fatherpakhomius/templates/index.html:148
 msgid "Latest books"
 msgstr "احدث كتب"
 
-#: fatherpakhomius/templates/index.html:152
+#: fatherpakhomius/templates/index.html:154
 msgid "Books by father Pahkomius"
 msgstr "كتب لأبونا باخوميوس"
 
@@ -135,12 +275,12 @@ msgstr "عظات"
 
 #: fatherpakhomius/templates/search_results.html:26
 msgid "From sermons by father Pakhomius"
-msgstr "من قائمة عظات ﻷبونا باخوميوس"
+msgstr "من  عظات ﻷبونا باخوميوس"
 
 #: fatherpakhomius/templates/search_results.html:31
 #: fatherpakhomius/templates/sermons.html:17
 msgid "Sermons by father Pakhomius"
-msgstr "قائمة عظات ﻷبونا باخوميوس"
+msgstr " عظات ﻷبونا باخوميوس"
 
 #: fatherpakhomius/templates/search_results.html:110
 msgid "From sermons by other fathers"
@@ -152,25 +292,11 @@ msgstr "كتب"
 
 #: fatherpakhomius/templates/search_results.html:207
 msgid "From books by father Pakhomius"
-msgstr "من قائمة كتب ﻷبونا باخوميوس"
+msgstr "من كتب ﻷبونا باخوميوس"
 
 #: fatherpakhomius/templates/search_results.html:263
 msgid "From books by other fathers"
-msgstr "من قائمة كتب ﻵباء آخرين"
-
-#: fatherpakhomius/views.py:115
-msgid "subject"
-msgstr ""
-
-#: fatherpakhomius/views.py:116
-#, fuzzy
-#| msgid "Email address"
-msgid "email_address"
-msgstr "عنوان البريد"
-
-#: fatherpakhomius/views.py:117
-msgid "message"
-msgstr ""
+msgstr "من كتب ﻵباء آخرين"
 
 #: venv/lib/python3.10/site-packages/crispy_forms/tests/test_form_helper.py:130
 #: venv/lib/python3.10/site-packages/crispy_forms/tests/test_form_helper.py:140
@@ -1385,3 +1511,9 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:249
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "category"
+#~ msgstr "الفئة"
+
+#~ msgid "book"
+#~ msgstr "كتاب"

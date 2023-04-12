@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-{% load static %}
-{% load i18n %}
-<!--<html lang="ar">-->
+{% load static i18n %}
 <html lang="ar" dir="rtl">
-
+        
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
@@ -52,9 +50,9 @@ integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6B
     
             <form method="POST" action="{% url 'search-results' %}" class=" d-flex m-auto col-12 col-sm-7 col-md-10 col-lg-2 justify-content-end" role="search">
                 {% csrf_token %}
-                <input style="" name="searched" class="form-control bg-transparent me-2 search-bar" type="search" placeholder="{% trans 'search' %}" aria-label="search">
+                <input name="searched" class="form-control bg-transparent me-2 search-bar" type="search" placeholder="{% trans 'search' %}" aria-label="search">
                 <button style="border-radius: 30px;" class="btn" type="submit">
-                    <img style="" src="{% static 'icons/search.svg' %}">
+                    <img src="{% static 'icons/search.svg' %}">
                 </button>
             </form>
         </div>
