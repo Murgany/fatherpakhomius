@@ -28,27 +28,37 @@
                             <div class="card-body">
                                 <a href="media/{{book.book}}" target="_blank" class="pdf-link text-center">
                                     {{book.title}}
+
+                                    {% if book.image %}
                                     <div class="mt-3">
                                         <img src="{{ book.image.url }}" alt="pdf" class="img-fluid p-0 m-0 rounded">
                                     </div>
+                                    {% endif %}
+
                                 </a><br>
                                 {% if book.author %}
-                                <small>{{book.author}}</small>
+                                <small class="small">{{book.author}}</small>
                                 {% endif %}
                                 {% if book.category %}
-                                <div class="mt-2">
-                                    <small class="">{% trans 'Category' %}: {{book.category}}</small>
+                                <div class="my-2">
+                                 <small>{% trans 'Category' %}: {{book.category}}</small>
                                 </div>
                                 {% endif %}
                                 {% if book.description %}
-                                <details>
-                                    <summary>{% trans 'Summary' %}</summary>
-                                    <p class="text-muted">{{book.description}}</p>
-                                </details>
+                                    <details>
+                                        <summary  class="bg-gradient-red rounded text-center px-2" style="width:100px; color: #fff;">{% trans 'Summary' %}</summary>
+                                        <p class="text-muted">{{book.description}}</p>
+                                    </details>
                                 {% else %}
                                 <div></div>
                                 {% endif %}
 
+                                {% if book.external_link %} 
+                                <p class="mt-2">
+                                    {% trans 'External link' %}: &nbsp; <a class="pdf-link " href="{{book.external_link}}">{{book.external_link}}</a>
+                                </p>
+                                {% endif %}
+                                
                             </div>
                         </div>
                     </div>

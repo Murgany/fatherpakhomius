@@ -8,7 +8,9 @@
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1 shrink-to-fit=no"/>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
-integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" 
+crossorigin="anonymous">
+
     <title>{% trans 'Father Pakhomius Official Website' %}</title>
 </head>
 
@@ -44,13 +46,26 @@ integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6B
                     <a class="nav-link p-2 ps-2 pe-2" href="{% url 'contact' %}">{% trans 'Contact us' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 ps-2 pe-2" href="#">{% trans 'Categories' %}</a>
+                    <a class="nav-link p-2 ps-2 pe-2" href="{% url 'category_list' %}">{% trans 'Categories' %}</a>
                 </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% trans 'Categories' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#">{% trans 'Sermons' %}</a></li>
+                      <li><a class="dropdown-item" href="#">{% trans 'Books' %}</a></li>
+                    </ul>
+                </li> -->
             </ul>
+            <!-- <form method="get">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form> -->
     
-            <form method="POST" action="{% url 'search-results' %}" class=" d-flex m-auto col-12 col-sm-7 col-md-10 col-lg-2 justify-content-end" role="search">
+            <form method="get" action="{% url 'search-results' %}" class=" d-flex m-auto col-12 col-sm-7 col-md-10 col-lg-2 justify-content-end" role="search">
                 {% csrf_token %}
-                <input name="searched" class="form-control bg-transparent me-2 search-bar" type="search" placeholder="{% trans 'search' %}" aria-label="search">
+                <input name="q" class="form-control bg-transparent me-2 search-bar" type="search" placeholder="{% trans 'search' %}" aria-label="search">
                 <button style="border-radius: 30px;" class="btn" type="submit">
                     <img src="{% static 'icons/search.svg' %}">
                 </button>

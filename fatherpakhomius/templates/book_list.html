@@ -4,7 +4,7 @@
 {% block navbar %} {% include 'base.html' %} {% endblock %}
 
 {% block body %}
-<div class="container-fluid mb-0 py-5 bg-lighter" style="">
+<div class="container-fluid mb-0 py-5 bg-lighter">
     <div class="row justify-content-center">
         <div class="col-sm-10 col-xl-8  mt-5">
             <div class="card bg-gradient-primary px-3">
@@ -28,21 +28,23 @@
                             <div class="card-body">
                                 <a href="media/{{book.book}}" target="_blank" class="pdf-link text-center">
                                     {{book.title}}
-                                    <div class="mt-3">
+                                {% if book.image %}
+                                    <div class="my-2">
                                         <img src="{{ book.image.url }}" alt="pdf" class="img-fluid p-0 m-0 rounded">
                                     </div>
-                                </a><br>
+                                    {% endif %}
+                                </a>
                                 {% if book.author %}
-                                <small>{{book.author}}</small>
+                                <small class="small">{{book.author}}</small>
                                 {% endif %}
                                 {% if book.category %}
-                                <div class="mt-2">
+                                <div class="my-2">
                                  <small>{% trans 'Category' %}: {{book.category}}</small>
                                 </div>
                                 {% endif %}
                                 {% if book.description %}
                                     <details>
-                                        <summary>{% trans 'Summary' %}</summary>
+                                        <summary  class="bg-gradient-red rounded text-center px-2" style="width:100px; color: #fff;">{% trans 'Summary' %}</summary>
                                         <p class="text-muted">{{book.description}}</p>
                                     </details>
                                 {% else %}

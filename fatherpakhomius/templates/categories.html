@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% load static i18n %} 
+
+{% block navbar %} {% include 'base.html' %} {% endblock %} 
+
+{% block body %}
+
+<div class="container-fluid py-5">
+    <div class="row justify-content-center mt-5">
+
+      <div class="col-12 col-sm-6">
+        <div class="card-header">
+              <h1>Sermon Categories</h1>
+        </div>
+        <div class="card-body">
+        <ul>
+            {% for category in sermon_categories %}
+                <li><a class="pdf-link" href="{% url 'sermon_category_detail' category_id=category.pk %}">{{ category.name }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-sm-6">
+        <div class="card-header">
+              <h1>Book Categories</h1>
+        </div>
+        <div class="card-body">
+        <ul>
+            {% for category in book_categories %}
+               <li><a class="pdf-link" href="{% url 'book_category_detail' category_id=category.pk %}">{{ category.name }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %} 
+{% block scripts %} {% endblock %} 
+{% block footer %} {% include 'footer.html' %} {% endblock %}
+

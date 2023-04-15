@@ -10603,7 +10603,7 @@ button.bg-darker:focus {
 .text-white {
   color: #fff !important; }
 
-.text-primary {
+.text-primary, summary .text-primary {
   color: #5e72e4 !important; }
 
 a.text-primary:hover, a.text-primary:focus {

@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+{% load static i18n %} 
+
+{% block navbar %} {% include 'base.html' %} {% endblock %} 
+{% block body %}
+
+<div class="container-fluid py-5">
+  <div class="row justify-content-center mt-5">
+    <div class="col-sm-10 col-xl-8">
+      <div class="card-header">
+        <div class="row">
+
+          <div class="col-sm- col-12 text-center">
+            {% if post.title %}
+            <h4 class="px-3 pt-3">{{ post.title }}</h4>
+            {% endif %}
+            <!-- <a href="{% url 'articles' %}" class="btn btn-sm bg-gradient-red btn-dark border-0">{% trans 'See all topics' %}</a> -->
+         
+            <small>{{ post.date_created }}</small> 
+         </div>
+
+          <!-- <div class="col-sm- col-12 text-right"> -->
+            <!-- <a href="{% url 'articles' %}" class="btn btn-sm bg-gradient-red btn-dark border-0">{% trans 'See all topics' %}</a> -->
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4 d-flex p-3 px-4 justify-content-center">
+          {% if post.image %}
+          <img class="img-fluid px-2" src="{{ post.image.url }}" />
+          {% else %}
+          <img class="img-fluid px-2" src="{% static 'images/ph.png' %}" />
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          {% if post.article %}
+          <p class="text-muted d-flex my-auto p-3">{{ post.article }}</p>
+          {% endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} 
+{% block scripts %} {% endblock %} 
+{% block footer %} {% include 'footer.html' %} {% endblock %}

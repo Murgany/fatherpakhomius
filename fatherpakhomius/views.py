@@ -1,40 +1,93 @@
 import json
-from django.views.generic import ListView
-from .models import Sermon, Book, SermonCategory, BookCategory, SermonsByOtherFather, BooksByOtherFather, ChosenSermon, UserMessage
+from django.views.generic import ListView, DetailView
+from .models import Post, Sermon, Book, SermonCategory, BookCategory, SermonsByOtherFather, BooksByOtherFather, ChosenSermon, UserMessage
 from django.shortcuts import render, redirect
 from .forms import ContactForm, UserMessageForm
 from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from .forms import UserMessageForm
-from django.views import generic
 from django.contrib import messages
+from django.db.models import Q
 # language = 'ar'
 # translation.activate(language)
 
-# home page view
-
 def search_results(request):
-    if request.method == 'POST':
-        searched = request.POST['searched']
-        books = Book.objects.filter(description__icontains=searched, title__icontains=searched)
-        sermons = Sermon.objects.filter(description__icontains=searched, title__icontains=searched)
-        other_sermons = SermonsByOtherFather.objects.filter(description__icontains=searched, title__icontains=searched)
-        other_books = BooksByOtherFather.objects.filter(description__icontains=searched, title__icontains=searched)
+    query = request.GET.get('q')
+    if query:
+        # Search across all models using Q objects
+        sermon_categories = SermonCategory.objects.filter(Q(name__icontains=query)) # | Q(description__icontains=query)
+        book_categories = BookCategory.objects.filter(Q(name__icontains=query))  #| Q(description__icontains=query)
+        sermons = Sermon.objects.filter(Q(title__icontains=query) | Q(speaker__icontains=query)| Q(description__icontains=query) | Q(category__name__icontains=query))
+        other_sermons = SermonsByOtherFather.objects.filter(Q(title__icontains=query) | Q(speaker__icontains=query) | Q(description__icontains=query))
+        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) |Q(description__icontains=query) | Q(category__name__icontains=query))
+        other_books = BooksByOtherFather.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(description__icontains=query))
+        chosen_sermons = ChosenSermon.objects.filter(Q(title__icontains=query) | Q(speaker__icontains=query) | Q(description__icontains=query)| Q(category__name__icontains=query))
+        posts = Post.objects.filter(Q(title__icontains=query) | Q(author__icontains=query)| Q(article__icontains=query))
 
         context = {
-            'searched': searched,
+            'sermon_categories': sermon_categories,
+            'book_categories': book_categories,
             'sermons': sermons,
             'other_sermons': other_sermons,
             'books': books,
             'other_books': other_books,
+            'chosen_sermons': chosen_sermons,
+            'posts': posts,
+            'query': query,
         }
-        return render(request, "search_results.html", context)
+    else:
+        context = {}
+    return render(request, 'search_results.html', context)
 
 
-class BookDetailView(generic.DetailView):
+class PostView(ListView):
+    model = Post
+    template_name = "post.html"
+    context_object_name = 'posts'
+    queryset = Post.objects.all().order_by('-id')
+    paginate_by = 10
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post_detail.html'
+
+
+def category_list(request):
+    sermon_categories = SermonCategory.objects.all().order_by('-id')
+    book_categories = BookCategory.objects.all().order_by('-id')
+    context = {
+        'sermon_categories': sermon_categories,
+        'book_categories': book_categories,
+    }
+    return render(request, 'categories.html', context)
+
+def book_list_by_category(request, category_id):
+    category = BookCategory.objects.get(pk=category_id)
+    books = category.books.all().order_by('-id')
+    other_books = category.other_books.all().order_by('-id')
+    context = {
+        'category': category,
+        'books': books,
+        'other_books': other_books
+    }
+    return render(request, 'book_category_detail.html', context)
+
+def sermon_list_by_category(request, category_id):
+    category = SermonCategory.objects.get(pk=category_id)
+    sermons_category = category.sermons.all().order_by('-id')
+    other_sermons = category.other_sermons.all().order_by('-id')
+    chosen_sermons = category.chosen_sermons.all().order_by('-id')
+    context = {
+        'category': category,
+        'sermons_category': sermons_category,
+        'other_sermons': other_sermons,
+        'chosen_sermons': chosen_sermons,
+    }
+    return render(request, 'sermon_category_detail.html', context)
+
+class BookDetailView(DetailView):
     model = Book
     template_name = 'book_detail.html'
-
 
 class IndexView(ListView):
     model = ChosenSermon
@@ -44,13 +97,18 @@ class IndexView(ListView):
     # queryset = ChosenSermon.objects.prefetch_related('sermon_name').order_by('-id')
     paginate_by = 1
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post"] = Post.objects.last()
+        return context
 
-class LatestSermons(ListView):
-    model = Sermon
-    template_name = 'latest_sermons.html'
-    context_object_name = 'latest_sermons'
-    queryset = Sermon.objects.all().order_by('-id')
-    paginate_by = 5
+
+# class LatestSermons(ListView):
+#     model = Sermon
+#     template_name = 'latest_sermons.html'
+#     context_object_name = 'latest_sermons'
+#     queryset = Sermon.objects.all().order_by('-id')
+#     paginate_by = 5
 
 
 # All sermons list view

@@ -31,26 +31,33 @@
                                 {% if sermon.title %}
                                 <h6 class="h6">{{sermon.title}}</h6>
                                 {% endif %}
+
+                                {% if sermon.audio %}
                                 <audio controls class="w-100">
-                                    {% if sermon.audio %}
                                     <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
                                     Your browser does not support the audio element.
-                                    {% elif sermon.video %}
+                                </audio><br>
+                                 {% elif sermon.video %}
+                                <video controls class="w-100">
                                     <source src="{{ sermon.video.url }}" type="video/mp4"/>
                                     Your browser does not support the audio element.
-                                    {% else %}
-                                    <div></div>
-                                    {% endif %}
-                                </audio><br>
+                                </video><br>
+                                 {% else %}
+                                    <span></span>
+                                {% endif %}
+
+                                {% if sermon.speaker %}
+                                <small class="small">{{sermon.speaker}}</small><br>
+                                {% endif %}
 
                                 {% if sermon.category %}
-                                <p><small>{% trans 'Category' %}: {{ sermon.category }}</small></p>
+                                <small>{% trans 'Category' %}: {{ sermon.category }}</small>
                               {% endif %}
                                 
                                 {% if sermon.description %}
-                                  <details>
-                                      <summary>{% trans 'Summary' %}</summary>
-                                      <small class="text-muted mb-3">{{sermon.description}}</small>
+                                  <details class="mt-2">
+                                    <summary  class="bg-gradient-red rounded text-center px-2" style="width:100px; color: #fff;">{% trans 'Summary' %}</summary>
+                                    <small class="text-muted mb-3">{{sermon.description}}</small>
                                  </details>
                                 {% endif %}
                         </tr>
@@ -81,6 +88,7 @@
             <li class=""><a class="page-link px-3" href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
             {% endfor %}
+
             {% if page_obj.has_next %}
             <li class="">
                 <a class="page-link px-3"

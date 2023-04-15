@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block body %}
+<div class="container py-5 justify-content-center">
+    <!-- <div class="row justify-content-cente">
+        <div class="col-sm-9 col-xl-8 justify-content-center">
+
+</div>
+        </div> -->
+
+        <div class="row justify-content-center">
+
+        <div class="col-sm-9 col-xl-8 justify-content-center">
+
+            <!-- <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'category_list' %}">{% trans 'Categories' %}</a></li>
+                  <li class="breadcrumb-item"><a href="{% url 'sermons' %}">{% trans 'Sermons' %}</a></li>
+                  <li class="breadcrumb-item"><a href="{% url 'book_list' %}">{% trans 'Books' %}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"></li>
+                </ol>
+            </nav> -->
+
+            <div class="card mt-4 bg-lighter"
+                style="background-image:  url(/media/images/cross.png); background-position: center;">
+                <div class="card-header bg-gradient-primary">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-sm-8">
+                            <h1 class="h1 text-white header-title ls-1 mb-1">{% trans 'Category' %}: {{ category.name }}</h1>
+                        </div>
+                        <div class="col-12 col-sm-4 text-right float-right justify-content-right">
+                            <!-- <a class="btn btn-sm bg-gradient-red btn-dark border-0"
+                                    href="{% url 'category_list' %}"
+                            >{% trans 'Go to categories' %}</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body d-fle justify-content-cente">
+                    <table class="table w-100 table-flush">
+                        {% if sermons_category or other_sermons or schosen_sermons %}
+                       
+                        {% for sermon in sermons_category %}
+                        <tbody>
+                        <tr>
+                                {% if sermon.title %}
+                                <h6 class="h6">{{sermon.title}}</h6>
+                                {% endif %}
+                                <audio controls class="w-100">
+                                    {% if sermon.audio %}
+                                    <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
+                                    Your browser does not support the audio element.
+                                    {% elif sermon.video %}
+                                    <source src="{{ sermon.video.url }}" type="video/mp4"/>
+                                    Your browser does not support the audio element.
+                                    {% else %}
+                                    <div></div>
+                                    {% endif %}
+                                </audio><br>
+
+                                {% if sermon.speaker %}
+                                <small class="small">{{sermon.speaker}}</small>
+                                {% endif %}
+
+                                {% if sermon.category %}
+                                <p><small>{% trans 'Category' %}: {{ sermon.category }}</small></p>
+                              {% endif %}
+                                
+                                {% if sermon.description %}
+                                  <details>
+                                    <summary  class="bg-gradient-red rounded text-center px-2" style="width:100px; color: #fff;">{% trans 'Summary' %}</summary>
+                                    <small class="text-muted mb-3">{{sermon.description}}</small>
+                                 </details>
+                                {% endif %}
+                        </tr>
+                        </tbody>
+                        <hr>
+                        {% endfor %}
+
+                        {% for sermon in other_sermons %}
+                        <tbody>
+                        <tr>
+                                {% if sermon.title %}
+                                <h6 class="h6">{{sermon.title}}</h6>
+                                {% endif %}
+                                {% if sermon.audio %}
+                                <audio controls class="w-100">
+                                    <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
+                                    Your browser does not support the audio element.
+                                </audio><br>
+                                {% elif sermon.video %}
+                                <video controls class="w-100">
+                                   <source src="{{ sermon.video.url }}" type="video/mp4"/>
+                                    Your browser does not support the audio element.
+                                </video><br>
+                                {% else %}
+                                  <div></div>
+                                {% endif %}
+                                {% if sermon.speaker %}
+                                <small class="small">{{sermon.speaker}}</small>
+                                {% endif %}
+
+                                {% if sermon.category %}
+                                <p><small>{% trans 'Category' %}: {{ sermon.category }}</small></p>
+                              {% endif %}
+                                
+                                {% if sermon.description %}
+                                  <details>
+                                    <summary  class="bg-gradient-red rounded text-center px-2" style="width:100px; color: #fff;">{% trans 'Summary' %}</summary>
+                                    <small class="text-muted mb-3">{{sermon.description}}</small>
+                                 </details>
+                                {% endif %}
+
+                                {% if book.external_link %} 
+                                <p class="mt-2">
+                                    {% trans 'External link' %}: &nbsp; <a class="pdf-link " href="{{book.external_link}}">{{book.external_link}}</a>
+                                </p>
+                                {% endif %}
+                        </tr>
+                        </tbody>
+                        <hr>
+                        {% endfor %}
+
+                        {% for sermon in chosen_sermons %}
+                        <tbody>
+                        <tr>
+                                {% if sermon.title %}
+                                <h6 class="h6">{{sermon.title}}</h6>
+                                {% endif %}
+                                {% if sermon.audio %}
+                                <audio controls class="w-100">
+                                    <source src="{{ sermon.audio.url }}" type="audio/mpeg"/>
+                                    Your browser does not support the audio element.
+                                </audio><br>
+                                {% elif sermon.video %}
+                                <video controls class="w-100">
+                                    <source src="{{ sermon.video.url }}" type="video/mp4"/>
+                                    Your browser does not support the audio element.
+                                </video><br>
+                                {% else %}
+                                    <div></div>
+                                {% endif %}
+
+                                {% if sermon.speaker %}
+                                <small class="small">{{sermon.speaker}}</small>
+                                {% endif %}
+
+                                {% if sermon.category %}
+                                <p><small>{% trans 'Category' %}: {{ sermon.category }}</small></p>
+                              {% endif %}
+                                
+                                {% if sermon.description %}
+                                  <details>
+                                    <summary  class="bg-gradient-red rounded text-center px-2" style="width:100px; color: #fff;">{% trans 'Summary' %}</summary>
+                                    <small class="text-muted mb-3">{{sermon.description}}</small>
+                                 </details>
+                                {% endif %}
+
+                                {% if book.external_link %} 
+                                <p class="mt-2">
+                                    {% trans 'External link' %}: &nbsp; <a class="pdf-link " href="{{book.external_link}}">{{book.external_link}}</a>
+                                </p>
+                                {% endif %}
+                        </tr>
+                        </tbody>
+                        <hr>
+                        {% endfor %}
+
+                        {% else %}
+                        <h4>{% trans 'No sermons found in this category' %}</h4>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {% if is_paginated %}
+        <ul class="pagination row justify-content-center m-auto px-">
+            {% if page_obj.has_previous %}
+            <li class="">
+                <a class="px-3 page-link"
+                   href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled px-3 page-link"><span class="">&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="active"><span class="pagination-focus px-3 page-link">{{ i }} <span
+                    class="sr-only"> </span></span></li>
+            {% else %}
+            <li class=""><a class="page-link px-3" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="">
+                <a class="page-link px-3"
+                   href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled px-3 text-whit page-link"><span class="">&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    <!--Pagination end-->
+</div>
+
+<!-- {% for sermon in sermons %}
+   
+    <table class="table-border w-100"> 
+        <!- <li>{{ sermon.title }} by {{ sermon.speaker }} (published {{ sermon.date_created }})</li> ->
+        <tr>
+            <td class="">
+                <div class="row justify-content- ps-3 pe-3">
+                    <h5 class="text-light" style="">{{ sermon.title }}</h5>
+                    <audio controls class="bg-gradient- w-100" style="">
+                        {% if sermon.audio %}
+                        <source src="{{ sermon.audio.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                        {% elif sermon.video %}
+                        <source src="{{ sermon.video.url }}" type="video/mp4">
+                        Your browser does not support the audio element.
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                    </audio>
+                </div>
+            </td>
+        </tr>
+    </table>
+{% empty %}
+    <li>No sermons found.</li>
+{% endfor %} -->
+
+{% endblock %}
+
+{% block footer %}
+<div style="margin-bottom: 0px"> {% include "footer.html" %}</div> {% endblock %}
+
+{% block scripts %}  {% endblock %}
+

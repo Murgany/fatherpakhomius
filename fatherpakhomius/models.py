@@ -2,19 +2,33 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+# class SermonCategory(models.Model):
+#     name = models.CharField(max_length=50)
+#     description = models.TextField()
 
+#     def get_absolute_url(self):
+#         return reverse('sermon_category_detail', kwargs={'pk': self.pk})
+
+# class BookCategory(models.Model):
+#     name = models.CharField(max_length=50)
+#     description = models.TextField()
+
+#     def get_absolute_url(self):
+#         return reverse('book_category_detail', kwargs={'pk': self.pk})
+        
 class SermonCategory(models.Model):
     name = models.CharField(_('sermon category name'), max_length=200)
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
-
-    
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
+   
     class Meta:
         verbose_name = _('Sermon Category')
         verbose_name_plural = _('Sermon Categories')
     
     def get_absolute_url(self):
         """Returns the url to access a particular book instance."""
-        return reverse('category-detail', args=[str(self.id)])
+        # return reverse('sermon_categories', args=[str(self.id)])
+        return reverse('sermon_category_detail', kwargs={'pk': self.pk})
+    
 
     def __str__(self):
         return self.name
@@ -22,16 +36,16 @@ class SermonCategory(models.Model):
 
 class BookCategory(models.Model):
     name = models.CharField(_('book category name'), max_length=200)
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
 
-    
     class Meta:
         verbose_name = _('Book Category')
         verbose_name_plural = _('Book Categories')
     
     def get_absolute_url(self):
         """Returns the url to access a particular book instance."""
-        return reverse('category-detail', args=[str(self.id)])
+        # return reverse('book_category_detail', args=[str(self.id)])
+        return reverse('book_category_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
@@ -40,25 +54,27 @@ class BookCategory(models.Model):
 class Sermon(models.Model):
     title = models.CharField(_('sermon title'), max_length=200)
     speaker = models.CharField(_('speaker'), max_length=100, blank=True)
-    category = models.ForeignKey(SermonCategory, verbose_name=_('sermon category'), on_delete=models.CASCADE, default="")
-    audio = models.FileField(_("sermon audio"), upload_to='audio', blank=True)
+    category = models.ForeignKey(SermonCategory, related_name='sermons', verbose_name=_('sermon category'), on_delete=models.CASCADE, default="")
+    audio = models.FileField(_("sermon audio"), upload_to='audio')
     video = models.FileField(_("video"), upload_to='video', blank=True)
     description = models.TextField(_("description"), max_length=1000, blank=True)
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
     
     class Meta:
         verbose_name = _('Sermon')
         verbose_name_plural = _('Sermons')
 
-    def display_category(self):
-        """Creates a string for the category. This is required to display aategory in Admin."""
-        return ', '.join([category.name for category in self.category.all()[:3]])
+    # def display_category(self):
+    #     """Creates a string for the category. This is required to display aategory in Admin."""
+    #     return ', '.join([category.name for category in self.category.all()[:3]])
 
-    display_category.short_description = 'Category'
+    # display_category.short_description = 'Category'
 
-    # def get_absolute_url(self):
-    #     """Returns the url to access a particular book instance."""
-    #     return reverse('sermon-detail', args=[str(self.id)])
+    def get_absolute_url(self):
+        """Returns the url to access a particular book instance."""
+        # return reverse('sermon-detail', args=[str(self.id)])
+        return reverse('sermon_category_detail', kwargs={'pk': self.pk})
+    
 
     def __str__(self):
         return self.title
@@ -67,14 +83,12 @@ class Sermon(models.Model):
 class SermonsByOtherFather(models.Model):
     title = models.CharField(_("sermon title"), max_length=200)
     speaker = models.CharField(_('speaker'), max_length=100, blank=True)
-    author = models.CharField(_("author"), max_length=200, blank=True, )
-    category = models.ForeignKey(SermonCategory, verbose_name=_("sermon category"), on_delete=models.CASCADE, default="")
+    category = models.ForeignKey(SermonCategory, related_name='other_sermons', verbose_name=_("sermon category"), on_delete=models.CASCADE, default="")
     audio = models.FileField(_("sermon audio"), upload_to='audio', blank=True, )
     video = models.FileField(_("video"), upload_to='video', blank=True, )
-    # image = models.ImageField(_("image"), upload_to='images', blank=True, )
     description = models.TextField(_("description"), max_length=1000, blank=True)
     external_link = models.URLField(_("external link"), max_length=200, blank=True)
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
 
     
     class Meta:
@@ -98,12 +112,11 @@ class SermonsByOtherFather(models.Model):
 class Book(models.Model):
     title = models.CharField(_('book title'), max_length=200)
     author = models.CharField(_('author'), max_length=100, blank=True)
-    category = models.ForeignKey(BookCategory, verbose_name=_('book category'), on_delete=models.CASCADE, default="")
+    category = models.ForeignKey(BookCategory,related_name='books', verbose_name=_('book category'), on_delete=models.CASCADE, default="")
     book = models.FileField(_('book instance'), upload_to='books', )
     image = models.ImageField(_('image'), upload_to='images', blank=True, )
     description = models.TextField(_('description'), max_length=1000, blank=True, )
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
-
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
 
     class Meta:
         verbose_name = _('Book')
@@ -120,12 +133,12 @@ class Book(models.Model):
 class BooksByOtherFather(models.Model):
     title = models.CharField(_('book title'), max_length=200)
     author = models.CharField(_('author'), max_length=200, blank=True, )
-    category = models.ForeignKey(BookCategory, verbose_name=_('book category'), on_delete=models.CASCADE, default="")
+    category = models.ForeignKey(BookCategory, related_name='other_books', verbose_name=_('book category'), on_delete=models.CASCADE, default="")
     book = models.FileField(_('book instance'), upload_to='books', )
     image = models.ImageField(_('image'), upload_to='images', blank=True, )
     description = models.TextField(_('description'), max_length=1000, blank=True, )
     external_link = models.URLField(_('external link'), max_length=200, blank=True, )
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
 
     
     class Meta:
@@ -148,11 +161,12 @@ class BooksByOtherFather(models.Model):
 
 class ChosenSermon(models.Model):
     # sermon_name = models.ForeignKey(Sermon, verbose_name=_('sermon name'), on_delete=models.CASCADE, default='', related_name='chosen')
-    sermon_name = models.CharField(_('sermon name'), max_length=200)
+    title = models.CharField(_('title'), max_length=200, default='')
     speaker = models.CharField(_('speaker'), max_length=100, blank=True)
-    category = models.ForeignKey(SermonCategory, verbose_name=_('sermon category'), on_delete=models.CASCADE, default="")
+    category = models.ForeignKey(SermonCategory, related_name='chosen_sermons', verbose_name=_('sermon category'), on_delete=models.CASCADE, default="")
+    description = models.TextField(_('description'), max_length=1000, blank=True, )
     audio = models.FileField(_("sermon audio"), upload_to='audio', blank=True)
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
 
     
     class Meta:
@@ -160,14 +174,14 @@ class ChosenSermon(models.Model):
         verbose_name_plural = _('Chosen Sermons')
 
     def __str__(self):
-        return f'{self.sermon_name}'
+        return f'{self.title}'
     
 
 class UserMessage(models.Model):
     subject = models.CharField(_('subject'), max_length=100)
     email_address = models.EmailField(_('email_address'), max_length=80)
     message = models.CharField(_('message'), max_length=1000)
-    date_created = models.DateTimeField(_("date_created"), auto_now=True)
+    date_created = models.DateTimeField(_("date_created"), auto_now_add=True)
 
 
     class Meta:
@@ -176,3 +190,23 @@ class UserMessage(models.Model):
 
     def __str__(self):
         return self.subject
+
+
+class Post(models.Model):
+    title = models.CharField(_("title"), max_length=100)
+    author = models.CharField(_('author'), max_length=100, blank=True)
+    article = models.TextField(_("article"), max_length=5000)
+    image = models.FileField(_('image'), upload_to='images', blank=True)
+    date_created = models.DateTimeField(_('date_created'), auto_now=False, editable=True)
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular book instance."""
+        return reverse('articles', args=[str(self.id)])
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = _('Post')
+        verbose_name_plural = _('Posts')
+    

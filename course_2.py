@@ -441,16 +441,16 @@
 #     print(f"{str1} and {str2} are NOT anagrams")
 
 
-def two_sum(a, b):
-    return a + b
-a = 7
-b = 8
-# entries = a + b
-target = 15
+# def two_sum(a, b):
+#     return a + b
+# a = 7
+# b = 8
+# # entries = a + b
+# target = 15
 
-if two_sum(a, b) == target:
-    print(f"7 + 8 = {target}")
-else:
-    print("the 2 sums are not equal to the targhet")
+# if two_sum(a, b) == target:
+#     print(f"7 + 8 = {target}")
+# else:
+#     print("the 2 sums are not equal to the targhet")
     
     

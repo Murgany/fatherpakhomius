@@ -70,8 +70,6 @@
                 <!--Pagination end-->
             </div>
             {% endfor %}
-
-
         </div>
         {% endfor %}
         {% endif %}
@@ -83,8 +81,8 @@
             <div class="row align-items-center py-4">
                 <div class="col-12 col-sm-6 ">
                     <a
-                            class="btn btn-sm btn-neutral mb-1"
-                            href="{% url 'sermons' %}"
+                        class="btn btn-sm btn-neutral mb-1"
+                        href="{% url 'sermons' %}"
                     >{% trans 'All sermons' %}</a>
                     <a
                             class="btn btn-sm btn-neutral mb-1"
@@ -101,6 +99,9 @@
 </div>
 
 <!-- Page content -->
+
+
+{% if post %}
 <div class="container-fluid mt--6">
     <div class="row justify-content-center ">
         <div class="col-sm-10  col-xl-8">
@@ -108,40 +109,44 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-7">
-                            <h5 class="h5 mb-0">{% trans 'Topic of the week' %}</h5>
+                            <!-- <h5 class="h5 mb-0">{% trans 'Topic of the week' %}</h5> -->
+                            
+                 <hh5 class="h5 mb-0">{{ post.title }}</h5>
                         </div>
                         <div class="col-5 text-right">
-                            <a href="#" class="btn btn-sm bg-gradient-red btn-dark border-0">{% trans 'See all topics' %}</a>
+                            <a href="{% url 'articles' %}" class="btn btn-sm bg-gradient-red btn-dark border-0">{% trans 'See all topics' %}</a>
                         </div>
                     </div>
                 </div>
+
                 <div class="row justify-content-center">
                     <div class="col-md-4 d-flex p-3 px-4 justify-content-center">
-                        <img class="img-fluid px-2" src="media/images/ph.png"/>
+                         {% if post.image %}
+                         <img class="img-fluid px-2" src="{{ post.image.url }}"/>
+                         {% else %}
+                         <img class="img-fluid px-2" src="{% static 'images/ph.png' %}"/>
+                         {% endif %}
                     </div>
                     <div class="col-md-8">
-                        <h4 class="px-3 pt-3">ما هو "لوريم إيبسوم" ؟</h4>
-                        <p class="text-muted p-3">
-                            لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم
-                            في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس
-                            عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب
-                            بمثابة دليل أو مرجع شكلي لهذه الأحرف. خمسة قرون من الزمن لم تقضي على هذا النص، بل انه حتى
-                            صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد الإلكتروني. انتشر بشكل كبير في ستينيّات هذا
-                            القرن مع إصدار رقائق "ليتراسيت" (Letraset) البلاستيكية تحوي مقاطع من هذا النص، وعاد لينتشر
-                            مرة أخرى مؤخراَ مع ظهور برامج النشر الإلكتروني مثل "ألدوس بايج مايكر" (Aldus PageMaker)
-                            والتي حوت أيضاً على نسخ من نص لوريم إيبسوم.
-                        </p>
-                    </div>
+            
+                {% if post.article %}
+                    <p class="text-muted p-3"> {{ post.article }} </p>
+                 {% endif%}
+
                 </div>
+                </div>
+                
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 
-<div class="container-fluid mt-5 bottom bg-lighter mb-0" style="">
+
+<div class="container-fluid mt-5 bottom bg-lighter mb-0">
     <div class="row justify-content-center pt-5 mt-5">
         <div class="col-sm-10 col-xl-8 mt-5">
-            <div class="card bg-gradient-primar ">
+            <div class="card">
                 <div class="card-header bg-transparent">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-12 col-sm-4">
@@ -171,14 +176,12 @@
 
 <div class="">{% block footer %} {% include "footer.html" %} {% endblock %}</div>
 
-{% block scripts %}
+{% block scripts %}c
 <script>
         $(document).ready(function () {
           $("#latestBooks").load("latest_books");
-          $("#latestSermons").load("latest_sermons");
+          $("#post").load("last_post");
         });
-
-
 </script>
 
 {% endblock %}

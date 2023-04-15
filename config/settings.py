@@ -126,17 +126,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # django-jazzmin (pip installed) theme UI tweeks. 
 JAZZMIN_SETTINGS = {
-    "site_title": "الموقع الرسمي ﻷونا باخوميوس",
+    "site_title": "الموقع الرسمي ﻷبونا باخوميوس",
     "site_header": "ابونا باخوميوس",
     "site_brand": _("Site administration"),
-    "site_logo": "icons/dove.png",
-    "login_logo": None,
-    "login_logo_dark": None,
+    "site_logo": "icons/dove.svg",
+    "login_logo": "icons/dove.svg",
+    "login_logo_dark": "icons/dove.svg",
     "site_logo_classes": "img-circle",
-    "site_icon": None,
+    "site_icon": "icons/dove.svg",
     "welcome_sign": "Welcome to the dashboard",
     "copyright": "Father Pakhomius",
-    "search_model": ["fatherpakhomius.Sermon"],
+    # "search_model": ["fatherpakhomius.Sermon"],
     "user_avatar": None,
     "topmenu_links": [
         {"name": _("View site"),  "url": "https://fatherpakhomius.pythonanywhere.com", "new_window": True},
