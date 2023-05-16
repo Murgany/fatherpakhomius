@@ -1,6 +1,5 @@
-# father pakhomius official website
+# Church Media Distribution Platform 
 
-Church Media Distribution Platform
 
 An online platform designed to provide access to audio sermons and PDF books to the congregation in Egypt. 
 The website serves as a digital library where members can access a wide range of religious resources that help them deepen 
