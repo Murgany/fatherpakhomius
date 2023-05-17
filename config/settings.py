@@ -1,20 +1,22 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
+
 load_dotenv()  # loads the configs from .env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 DEBUG = str(os.getenv('DEBUG'))
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
-
 # Application definition
 
-INSTALLED_APPS = [  
-    'jazzmin', # A customizable django-admin them. Must be on top ('django.contrib.admin') to work.
+INSTALLED_APPS = [
+    'jazzmin',  # A customizable django-admin them. Must be on top ('django.contrib.admin') to work.
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,9 +25,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'fatherpakhomius',
-    'crispy_forms',
+    'fatherpakhomius',  # The web app
+    'crispy_forms',  # Bootstrap form for django
 ]
+
+# Middlewares
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -38,7 +42,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Project root url configuration
+
 ROOT_URLCONF = 'config.urls'
+
+#  Templates configuration
 
 TEMPLATES = [
     {
@@ -56,7 +64,11 @@ TEMPLATES = [
     },
 ]
 
+# WSGI configuration
+
 WSGI_APPLICATION = 'config.wsgi.application'
+
+# Database configuration
 
 DATABASES = {
     'default': {
@@ -64,6 +76,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Password validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -80,12 +94,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-from django.utils.translation import gettext_lazy as _
+#  Translation and localization
 
+# Default language
 LANGUAGE_CODE = 'ar'
 
+# Whether to use RTL
 LANGUAGE_BIDI = True
 
+# language that uses RTL
 LANGUAGES_BIDI = ["ar"]
 
 TIME_ZONE = 'UTC'
@@ -96,11 +113,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Available languages
 LANGUAGES = (
     ('ar', _('Arabic')),
     ('en', _('English')),
 )
 
+# Path to translation files
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
@@ -108,8 +127,10 @@ LOCALE_DIRS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+# Paths to static files
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -119,12 +140,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# django-jazzmin (pip installed) theme UI tweeks. 
+
+# django-jazzmin (pip installed) theme settings.
+
 JAZZMIN_SETTINGS = {
     "site_title": "الموقع الرسمي ﻷبونا باخوميوس",
     "site_header": "ابونا باخوميوس",
@@ -136,20 +158,22 @@ JAZZMIN_SETTINGS = {
     "site_icon": "icons/dove.svg",
     "welcome_sign": "Welcome to the dashboard",
     "copyright": "Father Pakhomius",
-    # "search_model": ["fatherpakhomius.Sermon"],
     "user_avatar": None,
     "topmenu_links": [
-        {"name": _("View site"),  "url": "https://fatherpakhomius.pythonanywhere.com", "new_window": True},
+        {"name": _("View site"), "url": "https://fatherpakhomius.pythonanywhere.com", "new_window": True},
     ],
     "show_sidebar": True,
     "navigation_expanded": True,
     "hide_apps": [],
     "hide_models": ["auth.Group"],
-    "order_with_respect_to": ["fatherpakhomius", "fatherpakhomius.Sermon", "fatherpakhomius.ChosenSermon", "fatherpakhomius.SermonsByOtherFather", "fatherpakhomius.Book", "fatherpakhomius.BooksByOtherFather", "fatherpakhomius.SermonCategory", "fatherpakhomius.BookCategory","auth"],
+    "order_with_respect_to": ["fatherpakhomius", "fatherpakhomius.Sermon", "fatherpakhomius.ChosenSermon",
+                              "fatherpakhomius.SermonsByOtherFather", "fatherpakhomius.Book",
+                              "fatherpakhomius.BooksByOtherFather", "fatherpakhomius.SermonCategory",
+                              "fatherpakhomius.BookCategory", "auth"],
     "custom_links": {
         "books": [{
-            "name": "Make Messages", 
-            "url": "make_messages", 
+            "name": "Make Messages",
+            "url": "make_messages",
             "icon": "fas fa-comments",
             "permissions": ["books.view_book"]
         }]
@@ -170,7 +194,10 @@ JAZZMIN_SETTINGS = {
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     "language_chooser": True,
 }
+# django-jazzmin (pip installed) theme settings end.
 
+
+# django-jazzmin (pip installed) theme UI tweeks.
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
@@ -204,3 +231,4 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": True
 }
+# django-jazzmin (pip installed) theme UI tweeks end.
