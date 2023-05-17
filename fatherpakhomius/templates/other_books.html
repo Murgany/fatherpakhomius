@@ -5,6 +5,8 @@
 
 {% block body %}
 <div class="container-fluid py-5 mb-0 bg-lighter">
+
+    <!-- Content body -->
     <div class="row justify-content-center pt-5">
         <div class="col-sm-10 col-xl-8  mt-5">
             <div class="card bg-gradient-primary px-3">
@@ -67,7 +69,9 @@
             </div>
         </div>
     </div>
-    <!--Pagination-->
+    <!-- Content body end-->
+
+    <!-- Pagination -->
     {% if is_paginated %}
     <ul class="pagination row justify-content-center m-auto px-">
         {% if page_obj.has_previous %}
@@ -97,6 +101,7 @@
     </ul>
     {% endif %}
     <!--Pagination end-->
+
 </div>
 {% endblock %}
 
