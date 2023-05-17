@@ -4,14 +4,18 @@
 {% block navbar %} {% include 'base.html' %} {% endblock %}
 
 {% block body %}
+
+
 <div class="container-fluid mb-0 py-5 bg-lighter">
+
+    <!-- Content body -->
     <div class="row justify-content-center">
         <div class="col-sm-10 col-xl-8  mt-5">
             <div class="card bg-gradient-primary px-3">
                 <div class="card-header bg-transparent">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-12 col-sm-8">
-                            <h1 class="h1 text-white ls-1 mb-1">{% trans 'Category' %}: {{ category.name }}</h5>
+                            <h1 class="h1 text-white ls-1 mb-1">{% trans 'Category' %}: {{ category.name }}</h1>
                         </div>
                         <div class="col-12 col-sm-4 text-right float-right justify-content-right">
                             <a
@@ -104,8 +108,9 @@
             </div>
         </div>
     </div>
-    <!--Pagination-->
-    <!-- <div class="pagination row d-flex text-center mt-"> -->
+    <!-- Content body end -->
+
+    <!-- Pagination-->
         {% if is_paginated %}
         <ul class="pagination row text- justify-content-center m-auto px-">
             {% if page_obj.has_previous %}
@@ -134,8 +139,7 @@
             {% endif %}
         </ul>
         {% endif %}
-    <!-- </div> -->
-    <!--Pagination end-->
+    <!-- Pagination end-->
 </div>
 
 {% endblock %}
