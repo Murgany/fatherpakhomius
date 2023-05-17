@@ -7,6 +7,9 @@
 {% block body %}
 
 <div class="container-fluid py-5 justify-content-center">
+
+    <!-- Content body -->
+    
     <div class="row justify-content-center">
         <div class="col-sm-9 col-xl-8 justify-content-center">
             <div class="card mt-4 bg-lighter"
@@ -75,8 +78,10 @@
             </div>
         </div>
     </div>
+    
+    <!-- Content body end-->
 
-    <!--Pagination-->
+    <!-- Pagination -->
     {% if is_paginated %}
     <ul class="pagination row justify-content-center m-auto">
         {% if page_obj.has_previous %}
