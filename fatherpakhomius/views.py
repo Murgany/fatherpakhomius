@@ -1,15 +1,14 @@
 import json
 from django.views.generic import ListView, DetailView
-from .models import Post, Sermon, Book, SermonCategory, BookCategory, SermonsByOtherFather, BooksByOtherFather, ChosenSermon, UserMessage
+from .models import *
 from django.shortcuts import render, redirect
-from .forms import ContactForm, UserMessageForm
 from django.utils.translation import gettext_lazy as _
-from django.utils import translation
 from .forms import UserMessageForm
 from django.contrib import messages
 from django.db.models import Q
-# language = 'ar'
-# translation.activate(language)
+
+
+# Global search function
 
 def search_results(request):
     query = request.GET.get('q')
@@ -40,6 +39,8 @@ def search_results(request):
     return render(request, 'search_results.html', context)
 
 
+# Posts list view
+
 class PostView(ListView):
     model = Post
     template_name = "post.html"
@@ -47,10 +48,14 @@ class PostView(ListView):
     queryset = Post.objects.all().order_by('-id')
     paginate_by = 10
 
+
+# Single Post view
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
 
+
+# Category list view
 
 def category_list(request):
     sermon_categories = SermonCategory.objects.all().order_by('-id')
@@ -60,6 +65,9 @@ def category_list(request):
         'book_categories': book_categories,
     }
     return render(request, 'categories.html', context)
+
+
+# Book list by category
 
 def book_list_by_category(request, category_id):
     category = BookCategory.objects.get(pk=category_id)
@@ -72,6 +80,8 @@ def book_list_by_category(request, category_id):
     }
     return render(request, 'book_category_detail.html', context)
 
+
+# Sermons list by category
 def sermon_list_by_category(request, category_id):
     category = SermonCategory.objects.get(pk=category_id)
     sermons_category = category.sermons.all().order_by('-id')
@@ -85,9 +95,8 @@ def sermon_list_by_category(request, category_id):
     }
     return render(request, 'sermon_category_detail.html', context)
 
-class BookDetailView(DetailView):
-    model = Book
-    template_name = 'book_detail.html'
+
+# Index view | home page
 
 class IndexView(ListView):
     model = ChosenSermon
@@ -103,15 +112,8 @@ class IndexView(ListView):
         return context
 
 
-# class LatestSermons(ListView):
-#     model = Sermon
-#     template_name = 'latest_sermons.html'
-#     context_object_name = 'latest_sermons'
-#     queryset = Sermon.objects.all().order_by('-id')
-#     paginate_by = 5
-
-
 # All sermons list view
+
 class SermonsView(ListView):
     model = Sermon
     template_name = "sermons.html"
@@ -119,15 +121,9 @@ class SermonsView(ListView):
     queryset = Sermon.objects.all().order_by('-id')
     paginate_by = 2
 
-# # Chosen sermons list view
-# class ChosenSermon(ListView):
-#     model = ChosenSermon
-#     template_name = "index.html"
-#     context_object_name = 'chosen_sermon'
-#     queryset = ChosenSermon.objects.all().order_by('-id')
-#     paginate_by = 1
 
 # All books list view
+
 class BookListView(ListView):
     model = Book
     template_name = "book_list.html"
@@ -136,7 +132,7 @@ class BookListView(ListView):
     paginate_by = 4
 
 
-# Latest three books view to be displayed in home page (index) by the help of Jquery
+# Latest four books view | displayed in index.html page using Ajax
 class LatestBookListView(ListView):
     model = Book
     template_name = "latest_books.html"
@@ -146,6 +142,7 @@ class LatestBookListView(ListView):
 
 
 #  List of Sermons by other fathers view
+
 class OtherSermonsView(ListView):
     model = SermonsByOtherFather
     template_name = "other_sermons.html"
@@ -153,6 +150,8 @@ class OtherSermonsView(ListView):
     queryset = SermonsByOtherFather.objects.all().order_by('-id')
     paginate_by = 1
 
+
+# List of books by other authors
 
 class OtherBooksView(ListView):
     model = BooksByOtherFather
@@ -162,39 +161,18 @@ class OtherBooksView(ListView):
     paginate_by = 1
 
 
-from django.core.mail import send_mail, BadHeaderError
-from django.shortcuts import HttpResponse, HttpResponseRedirect
+# Contact view | render contact us page | Process form data
+# Note: Form data is saved in database & viewable through admin site, not sent through SMTP.
 
-
-# def contactView(request):
-#     if request.method == "GET":
-#         form = ContactForm()
-#     else:
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             subject = form.cleaned_data[_("subject")]
-#             email_address = form.cleaned_data[_("email_address")]
-#             message = form.cleaned_data[_('message')]
-#             try:
-#                 send_mail(subject, message, email_address, ["fathepakhomius@gmail.com"])
-#             except BadHeaderError:
-#                 return HttpResponse("Invalid header found.")
-#             return redirect("index")
-#     return render(request, "contact.html", {"form": form})
-
-
-def contactView(request):
-    # pass
+def contact_view(request):
     if request.method == 'POST':
         contact_form = UserMessageForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-
-            messages.success(request, _(('Your message was successfully sent!.')))
+            messages.success(request, _('Your message was successfully sent!.'))
             return redirect('index')
         else:
-            messages.error(request, _(('Error sending message!.')))
+            messages.error(request, _('Error sending message!.'))
 
-        # return redirect('index')
     contact_form = UserMessageForm()
     return render(request=request, template_name='contact.html', context={'contact_form': contact_form})
