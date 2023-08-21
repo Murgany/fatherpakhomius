@@ -7,7 +7,7 @@ their faith and understanding of the Bible. The website is user-friendly and eas
 with clear categories for sermons and books. 
 Members can stream or download audio sermons and read or download PDF.
 
-Live preview: https://fatherpakhomius.pythonanywhere.com/
+Live preview: https://frpakhomius.com/
 
 
 Tech used:
