@@ -2,7 +2,7 @@ from django import forms
 from .models import UserMessage
 
 
-# User message form | Contact us page
+# User message form | Used in Contact us page
 
 class UserMessageForm(forms.ModelForm):
     class Meta:
