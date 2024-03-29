@@ -167,6 +167,8 @@ class OtherBooksView(ListView):
 def contact_view(request):
     if request.method == 'POST':
         contact_form = UserMessageForm(request.POST)
+
+        #validate form
         if contact_form.is_valid():
             contact_form.save()
             messages.success(request, _('Your message was successfully sent!.'))
