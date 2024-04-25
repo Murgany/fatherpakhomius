@@ -1,15 +1,14 @@
-# Church Media Distribution Platform 
+# Media Distribution Website 
 
-
-An online platform designed to provide access to audio sermons and PDF books to the congregation in Egypt. 
-The website serves as a digital library where members can access a wide range of religious resources that help them deepen 
-their faith and understanding of the Bible. The website is user-friendly and easy to navigate,
-with clear categories for sermons and books. 
-Members can stream or download audio sermons and read or download PDF.
+A user-friendly online platform for accessing and sharing multimedia content. Provides easy access to a vast collection of audio, video, and PDF files, functioning as a comprehensive digital library. Features a responsive and user-friendly interface with clear categories, making it effortless to navigate for users of all technical backgrounds. Allows admin to upload or embed multimedia files through a custom-built, multi-lingual admin dashboard, streamlining the publishing process.
 
 Live preview: https://frpakhomius.com/
 
+Screenshot: Admin Dashboard
+
+![dashboard](https://github.com/Murgany/fatherpakhomius/assets/76653393/5c22947a-ad90-41ff-b6a1-bdba3ec8a709)
 
 Tech used:
 
 Django, HTML, CSS, JavaScript, Ajax, JQuery, Bootstrap
+
